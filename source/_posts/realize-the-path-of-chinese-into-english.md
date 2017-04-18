@@ -79,6 +79,6 @@ getTrans:_.debounce(function(){},500)
 
 最后使用[clipboardjs](https://clipboardjs.com/)为格式化的结果提供一个复制功能。这样就更加方便了。
 
-![最后功能](http://o93mwnwp7.bkt.clouddn.com/github/finalResult.png)
+<script async src="//jsrun.net/yPkKp/embed/all/light/"></script>
 
 > 但是这样还是有些不方便，因为仍然需要选择文件名，然后粘贴，再复制粘贴，多了很多重复操作，所以可以使用Node的文档读取与操作功能实现该功能。
