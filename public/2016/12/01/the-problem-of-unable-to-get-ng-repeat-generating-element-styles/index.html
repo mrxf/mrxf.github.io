@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>解决无法获取ngRepeat生成元素样式的问题 | 小凡的秘密花园</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在使用Angular进行开发的过程中，使用ng-repeat生成多个元素之后，如果元素的宽高是auto，那么我们在使用css()、getComputedStyle、offsetHeight或者clientHeight都会获取到0，我们无法获取到元素的实际高度。
-这是因为DOM的渲染是异步的，导致计算元素属性信息在DOM渲染完成之前就已经完成了，因此无法获取到DOM真正渲染结束之后属性。
-在Ang">
+    <meta charset="utf-8">
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                解决无法获取ngRepeat生成元素样式的问题 |
+                    
+                        This Js
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="在使用Angular进行开发的过程中，使用ng-repeat生成多个元素之后，如果元素的宽高是auto，那么我们在使用css()、getComputedStyle、offsetHeight或者clientHeight都会获取到0，我们无法获取到元素的实际高度。 这是因为DOM的渲染是异步的，导致计算元素属性信息在DOM渲染完成之前就已经完成了，因此无法获取到DOM真正渲染结束之后属性。 在Ang">
+<meta name="keywords" content="javascript,angular">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决无法获取ngRepeat生成元素样式的问题">
 <meta property="og:url" content="http://www.thisjs.com/2016/12/01/the-problem-of-unable-to-get-ng-repeat-generating-element-styles/index.html">
-<meta property="og:site_name" content="小凡的秘密花园">
-<meta property="og:description" content="在使用Angular进行开发的过程中，使用ng-repeat生成多个元素之后，如果元素的宽高是auto，那么我们在使用css()、getComputedStyle、offsetHeight或者clientHeight都会获取到0，我们无法获取到元素的实际高度。
-这是因为DOM的渲染是异步的，导致计算元素属性信息在DOM渲染完成之前就已经完成了，因此无法获取到DOM真正渲染结束之后属性。
-在Ang">
+<meta property="og:site_name" content="This Js">
+<meta property="og:description" content="在使用Angular进行开发的过程中，使用ng-repeat生成多个元素之后，如果元素的宽高是auto，那么我们在使用css()、getComputedStyle、offsetHeight或者clientHeight都会获取到0，我们无法获取到元素的实际高度。 这是因为DOM的渲染是异步的，导致计算元素属性信息在DOM渲染完成之前就已经完成了，因此无法获取到DOM真正渲染结束之后属性。 在Ang">
+<meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="http://o93mwnwp7.bkt.clouddn.com/github/ngrepeatAngularJS-header-image.png">
-<meta property="og:updated_time" content="2017-04-19T09:20:34.185Z">
+<meta property="og:updated_time" content="2017-04-19T09:20:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决无法获取ngRepeat生成元素样式的问题">
-<meta name="twitter:description" content="在使用Angular进行开发的过程中，使用ng-repeat生成多个元素之后，如果元素的宽高是auto，那么我们在使用css()、getComputedStyle、offsetHeight或者clientHeight都会获取到0，我们无法获取到元素的实际高度。
-这是因为DOM的渲染是异步的，导致计算元素属性信息在DOM渲染完成之前就已经完成了，因此无法获取到DOM真正渲染结束之后属性。
-在Ang">
+<meta name="twitter:description" content="在使用Angular进行开发的过程中，使用ng-repeat生成多个元素之后，如果元素的宽高是auto，那么我们在使用css()、getComputedStyle、offsetHeight或者clientHeight都会获取到0，我们无法获取到元素的实际高度。 这是因为DOM的渲染是异步的，导致计算元素属性信息在DOM渲染完成之前就已经完成了，因此无法获取到DOM真正渲染结束之后属性。 在Ang">
 <meta name="twitter:image" content="http://o93mwnwp7.bkt.clouddn.com/github/ngrepeatAngularJS-header-image.png">
-  
-    <link rel="alternative" href="/atom.xml" title="小凡的秘密花园" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+            
+                <link rel="alternative" href="/atom.xml" title="This Js" type="application/atom+xml">
+                
+                    
+                        <link rel="icon" href="/favicon.png">
+                        
+                            <link rel="stylesheet" href="/css/style.css">
+                                
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0056486684ce6d758dfb1dc18c601291";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
 </head>
-
 <body>
   <div id="container">
     <div class="left-col">
@@ -50,6 +62,8 @@
 		</hgroup>
 
 		
+		<p class="header-subtitle">小凡的秘密花园</p>
+		
 
 		
 			<div class="switch-btn">
@@ -63,6 +77,11 @@
 							<div class="ribbon"></div>
 						</div>
 						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
 						
 					</div>
 					
@@ -72,6 +91,8 @@
 					<ul class="tips-inner">
 						<li>Menu</li>
 						<li>Tags</li>
+						
+						<li>Links</li>
 						
 						
 					</ul>
@@ -98,6 +119,8 @@
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
 					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -105,11 +128,19 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/无头浏览器/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
 					</div>
 				</section>
 				
 				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zhangyanlu.com/">璐水珠</a>
+			        
+			        </div>
+				</section>
 				
 
 				
@@ -136,6 +167,8 @@
 			  <h1 class="header-author">张树源</h1>
 			</hgroup>
 			
+			<p class="header-subtitle">小凡的秘密花园</p>
+			
 			<nav class="header-menu">
 				<ul>
 				
@@ -152,6 +185,8 @@
 						<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
 				</div>
 			</nav>
@@ -204,7 +239,7 @@
 <h2 id="使用-watch方法来进行脏值检查"><a href="#使用-watch方法来进行脏值检查" class="headerlink" title="使用$watch方法来进行脏值检查"></a>使用$watch方法来进行脏值检查</h2><p>当元素信息发生改变之后，将最新的数据赋值给变量即可</p>
 <p>例如：</p>
 <p><strong>Directive</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">myApp.directive(<span class="string">'heightBind'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">scope</span>: &#123;</div><div class="line">      <span class="attr">heightValue</span>: <span class="string">'='</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">link</span>: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $element</span>) </span>&#123;</div><div class="line">      $scope.$watch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        $scope.heightValue = $element.height();</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">myApp.directive(<span class="string">'heightBind'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    scope: &#123;</div><div class="line">      heightValue: <span class="string">'='</span></div><div class="line">    &#125;,</div><div class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $element</span>) </span>&#123;</div><div class="line">      $scope.$watch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        $scope.heightValue = $element.height();</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p><strong>HTML</strong><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt; <span class="attr">div</span> <span class="attr">height-bind</span> <span class="attr">height-value</span>=<span class="string">"containerHeight"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <h2 id="当然，也可以使用-apply来完成同样的事情"><a href="#当然，也可以使用-apply来完成同样的事情" class="headerlink" title="当然，也可以使用$apply来完成同样的事情"></a>当然，也可以使用<code>$apply</code>来完成同样的事情</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  $scope.containerHeight = $(<span class="string">'#container'</span>).height()</div><div class="line">  $scope.$apply();</div><div class="line">&#125;, <span class="number">0</span>);</div></pre></td></tr></table></figure>
 <h2 id="使用自带的脏值检查方法"><a href="#使用自带的脏值检查方法" class="headerlink" title="使用自带的脏值检查方法"></a>使用自带的脏值检查方法</h2><p>我们知道，angular的一些方法会自动进行脏值检查，因此我们可以将上面的方法稍微改动一下即可</p>

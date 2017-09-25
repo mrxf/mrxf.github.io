@@ -1,60 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>使用lazyload优化网页图片的加载 | 小凡的秘密花园</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在遇到单页面中有大量的图片的时候，会产生一系列的问题，比如
-
-
-网页加载速度变慢
-
-消耗用户的大量流量
-
-
-
-因为用户有时候并不会浏览完全部的内容，但是一次性的加载，会导致用户体验的下降。
-这时候，这款基于jQuery的小插件lazyload就派上了用场。">
+    <meta charset="utf-8">
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                使用lazyload优化网页图片的加载 |
+                    
+                        This Js
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="在遇到单页面中有大量的图片的时候，会产生一系列的问题，比如   网页加载速度变慢  消耗用户的大量流量    因为用户有时候并不会浏览完全部的内容，但是一次性的加载，会导致用户体验的下降。 这时候，这款基于jQuery的小插件lazyload就派上了用场。">
+<meta name="keywords" content="javascript,jquery,lazyload">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用lazyload优化网页图片的加载">
 <meta property="og:url" content="http://www.thisjs.com/2014/07/03/use-the-lazyload-optimizing-web-images-load/index.html">
-<meta property="og:site_name" content="小凡的秘密花园">
-<meta property="og:description" content="在遇到单页面中有大量的图片的时候，会产生一系列的问题，比如
-
-
-网页加载速度变慢
-
-消耗用户的大量流量
-
-
-
-因为用户有时候并不会浏览完全部的内容，但是一次性的加载，会导致用户体验的下降。
-这时候，这款基于jQuery的小插件lazyload就派上了用场。">
-<meta property="og:updated_time" content="2016-10-27T03:55:52.431Z">
+<meta property="og:site_name" content="This Js">
+<meta property="og:description" content="在遇到单页面中有大量的图片的时候，会产生一系列的问题，比如   网页加载速度变慢  消耗用户的大量流量    因为用户有时候并不会浏览完全部的内容，但是一次性的加载，会导致用户体验的下降。 这时候，这款基于jQuery的小插件lazyload就派上了用场。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2016-10-27T03:55:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用lazyload优化网页图片的加载">
-<meta name="twitter:description" content="在遇到单页面中有大量的图片的时候，会产生一系列的问题，比如
-
-
-网页加载速度变慢
-
-消耗用户的大量流量
-
-
-
-因为用户有时候并不会浏览完全部的内容，但是一次性的加载，会导致用户体验的下降。
-这时候，这款基于jQuery的小插件lazyload就派上了用场。">
-  
-    <link rel="alternative" href="/atom.xml" title="小凡的秘密花园" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:description" content="在遇到单页面中有大量的图片的时候，会产生一系列的问题，比如   网页加载速度变慢  消耗用户的大量流量    因为用户有时候并不会浏览完全部的内容，但是一次性的加载，会导致用户体验的下降。 这时候，这款基于jQuery的小插件lazyload就派上了用场。">
+            
+                <link rel="alternative" href="/atom.xml" title="This Js" type="application/atom+xml">
+                
+                    
+                        <link rel="icon" href="/favicon.png">
+                        
+                            <link rel="stylesheet" href="/css/style.css">
+                                
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0056486684ce6d758dfb1dc18c601291";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
 </head>
-
 <body>
   <div id="container">
     <div class="left-col">
@@ -72,6 +60,8 @@
 		</hgroup>
 
 		
+		<p class="header-subtitle">小凡的秘密花园</p>
+		
 
 		
 			<div class="switch-btn">
@@ -85,6 +75,11 @@
 							<div class="ribbon"></div>
 						</div>
 						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
 						
 					</div>
 					
@@ -94,6 +89,8 @@
 					<ul class="tips-inner">
 						<li>Menu</li>
 						<li>Tags</li>
+						
+						<li>Links</li>
 						
 						
 					</ul>
@@ -120,6 +117,8 @@
 					        
 								<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
 					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
 						</div>
 					</nav>
 				</section>
@@ -127,11 +126,19 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/无头浏览器/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
 					</div>
 				</section>
 				
 				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.zhangyanlu.com/">璐水珠</a>
+			        
+			        </div>
+				</section>
 				
 
 				
@@ -158,6 +165,8 @@
 			  <h1 class="header-author">张树源</h1>
 			</hgroup>
 			
+			<p class="header-subtitle">小凡的秘密花园</p>
+			
 			<nav class="header-menu">
 				<ul>
 				
@@ -174,6 +183,8 @@
 						<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
 			        
 						<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
 			        
 				</div>
 			</nav>
@@ -245,7 +256,7 @@
 </li>
 </ul>
 </blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"> </span></div><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </div><div class="line">$(<span class="string">"img"</span>).lazyload(&#123; </div><div class="line"><span class="attr">effect</span> : <span class="string">"fadeIn"</span> </div><div class="line">&#125;); </div><div class="line">&#125;); </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"> </span></div><div class="line"><span class="javascript">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span></div><div class="line"><span class="javascript">$(<span class="string">"img"</span>).lazyload(&#123; </span></div><div class="line"><span class="javascript">effect : <span class="string">"fadeIn"</span> </span></div><div class="line"><span class="undefined">&#125;); </span></div><div class="line"><span class="undefined">&#125;); </span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
 <p><strong>API</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">placeholder : <span class="string">"img/grey.gif"</span>, <span class="comment">//用图片提前占位</span></div><div class="line">   <span class="comment">// placeholder,值为某一图片路径.此图片用来占据将要加载的图片的位置,待图片加载时,占位图则会隐藏</span></div><div class="line"> effect: <span class="string">"fadeIn"</span>, <span class="comment">// 载入使用何种效果</span></div><div class="line">   <span class="comment">// effect(特效),值有show(直接显示),fadeIn(淡入),slideDown(下拉)等,常用fadeIn</span></div><div class="line"> threshold: <span class="number">200</span>, <span class="comment">// 提前开始加载</span></div><div class="line">   <span class="comment">// threshold,值为数字,代表页面高度.如设置为200,表示滚动条在离目标位置还有200的高度时就开始加载图片,可以做到不让用户察觉</span></div><div class="line"> event: <span class="string">'click'</span>,  <span class="comment">// 事件触发时才加载</span></div><div class="line">   <span class="comment">// event,值有click(点击),mouseover(鼠标划过),sporty(运动的),foobar(…).可以实现鼠标莫过或点击图片才开始加载,后两个值未测试…</span></div><div class="line"> container: $(<span class="string">"#container"</span>),  <span class="comment">// 对某容器中的图片实现效果</span></div><div class="line">   <span class="comment">// container,值为某容器.lazyload默认在拉动浏览器滚动条时生效,这个参数可以让你在拉动某DIV的滚动条时依次加载其中的图片</span></div><div class="line"> failurelimit : <span class="number">10</span> <span class="comment">// 图片排序混乱时</span></div><div class="line">    <span class="comment">// failurelimit,值为数字.lazyload默认在找到第一张不在可见区域里的图片时则不再继续加载,但当HTML容器混乱的时候可能出现可见区域内图片并没加载出来的情况,failurelimit意在加载N张可见区域外的图片,以避免出现这个问题.</span></div></pre></td></tr></table></figure>
       

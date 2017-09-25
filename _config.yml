@@ -3,11 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 小凡的秘密花园
-subtitle: 
-description: 张树源的神秘花园
+title: This Js
+subtitle: 小凡的秘密花园
+description: 前端知识分享网站，Javascript学习乐园，This is a secret garden in javascript.This is js.
+keywords: 张树源,前端,CSS,JavaScript,Angular,thisjs
 author: 张树源
-language: zh-en
+language: zh-cn
 timezone:
 
 # URL
@@ -16,6 +17,19 @@ url: http://www.thisjs.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
+
+# sitemap
+sitemap:
+    path: sitemap.xml
+
+# Feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+# favicon
+favicon: /favicon.ico
 
 # Directory
 source_dir: source
