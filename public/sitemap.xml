@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.thisjs.com/2017/04/17/the-front-command-line-tools-proxy-settings/</loc>
+    
+    <lastmod>2018-05-08T00:42:59.354Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.thisjs.com/2018/04/07/using-man-in-the-middle-for-capture/</loc>
+    
+    <lastmod>2018-04-07T14:15:53.425Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.thisjs.com/2018/03/28/use-javascript-to-judge-whether-the-element-contains-a-certain-style/</loc>
     
     <lastmod>2018-03-28T12:33:47.401Z</lastmod>
@@ -96,13 +110,6 @@
     <loc>http://www.thisjs.com/2017/03/21/realize-the-path-of-chinese-into-english/</loc>
     
     <lastmod>2017-04-19T09:18:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.thisjs.com/2017/04/17/the-front-command-line-tools-proxy-settings/</loc>
-    
-    <lastmod>2017-04-19T09:18:08.000Z</lastmod>
     
   </url>
   

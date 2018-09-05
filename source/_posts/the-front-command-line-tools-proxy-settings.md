@@ -186,7 +186,7 @@ brew install proxychains-ng
 2. 设置 Proxychains 安装目录下的 `proxychains.conf` 文件
 
 ```bash
-vim /etc/proxychains.conf
+vim /usr/local/etc/proxychains.conf
 ```
 在`[ProxyList]`下加入
 ```
