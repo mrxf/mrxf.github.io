@@ -4,7 +4,7 @@ date: 2016-11-24 11:41:07
 tags: [javascript,angular]
 ---
 
-![Angular](http://o93mwnwp7.bkt.clouddn.com/github/ngFilter.jpg)
+![Angular](http://cdn.thisjs.com/github/ngFilter.jpg)
 
 Angular的过滤器是非常实用的一个功能，过滤器的功能是为了格式化数据，
 只要有数据表达式的地方就能使用过滤器。

@@ -4,7 +4,7 @@ date: 2017-02-28 17:14:14
 tags: 'node'
 ---
 
-![shadowsocks](http://o93mwnwp7.bkt.clouddn.com/github/ss.png)
+![shadowsocks](http://cdn.thisjs.com/github/ss.png)
 
 在企业开发项目时候，有时需要通过外网网络访问内部服务器，这时候可以通过搭建一个shadowsocks服务器，然后通过shadowsocks客户端连接服务器，访问内网内容。
 

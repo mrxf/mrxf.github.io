@@ -4,7 +4,7 @@ date: 2017-04-17 14:39:18
 tags: [node,git]
 ---
 
-![npm](http://o93mwnwp7.bkt.clouddn.com/thisjs/tumblr_inline_nn489p271Z1t68bpr_500.png)
+![npm](http://cdn.thisjs.com/thisjs/tumblr_inline_nn489p271Z1t68bpr_500.png)
 
 在开发过程中，有时候需要安装墙外一些包文件，前端常用的包管理工具有node/bower/sass,以及需要git发布内容，解决方案一般有三种：
 

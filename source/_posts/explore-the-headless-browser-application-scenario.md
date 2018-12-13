@@ -4,7 +4,7 @@ date: 2017-09-16 10:27:09
 tags: [无头浏览器, 爬虫]
 ---
 
-![自动化操作](http://o93mwnwp7.bkt.clouddn.com/blog/automateexpenses.jpg)
+![自动化操作](http://cdn.thisjs.com/blog/automateexpenses.jpg)
 
 [Headless browser](https://en.wikipedia.org/wiki/Headless_browser)会带给我非常亲切的感觉，因为总能让我回想起[按键精灵](http://www.anjian.com/)和[AutoHotKey](https://www.autohotkey.com/)这两款非常实用的小工具。
 
@@ -25,7 +25,7 @@ tags: [无头浏览器, 爬虫]
 但是遇到一些网站，并没有对外开放API接口，每次请求数据是通过登录后的Cookis进行判断。这时候我们也可以使用Request,截取`Set-Cookie` 头部信息即可。
 
 但是，还有一些网站，在登录时候，需要添加服务器发送给客户端的安全码，这个时候如果单单使用`Request`就有些费力了。
-![识别码](http://o93mwnwp7.bkt.clouddn.com/random.png)
+![识别码](http://cdn.thisjs.com/random.png)
 
 这时，使用无头浏览器可以很好的解决这个问题，这里使用Google Chrome的[puppeteer](https://github.com/GoogleChrome/puppeteer)编写例子。
 
