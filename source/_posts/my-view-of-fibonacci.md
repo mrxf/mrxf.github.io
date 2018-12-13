@@ -3,7 +3,7 @@ title: 一个前端眼中的斐波那契数列
 date: 2017-09-21 15:29:01
 tags: [Javascript]
 ---
-![斐波那契数字游戏](http://o93mwnwp7.bkt.clouddn.com/blog/fibonacci.jpeg)
+![斐波那契数字游戏](http://cdn.thisjs.com/blog/fibonacci.jpeg)
 
 大学时期，每学习一门新编程语言，就会被要求重新实现一遍斐波那契数列算法。那时，常用的方法即递归法和递推法。那时只对结果感兴趣，只要结果出来了，其他的仿佛就无所谓了。
 
@@ -11,7 +11,7 @@ tags: [Javascript]
 
 现在，成为一名前端工程师之后，再看这个问题，要考虑的情况，也变得更广泛了，可以用的方法也更多了。所以现在希望应用自己了解的知识，再计算一次斐波那契数列。
 
-![格式](http://o93mwnwp7.bkt.clouddn.com/blog/46c741e0cab6469d7e1c54bc054947c9_b.jpg)
+![格式](http://cdn.thisjs.com/blog/46c741e0cab6469d7e1c54bc054947c9_b.jpg)
 
 首先，斐波那契数列从第0个开始，分别是
 ```
@@ -261,7 +261,7 @@ for(let i=0; i< 10;i ++){
 
 # 通项公式法
 
-![通项公式](http://o93mwnwp7.bkt.clouddn.com/blog/503d269759ee3d6db9e6f1e046166d224f4adefd.jpg)
+![通项公式](http://cdn.thisjs.com/blog/503d269759ee3d6db9e6f1e046166d224f4adefd.jpg)
 
 斐波那契的通项公式证明，可以参阅[百度百科][h]。比照该公式，可以实现如下代码[[8]][j]：
 

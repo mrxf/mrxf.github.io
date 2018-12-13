@@ -6,7 +6,7 @@ tags: [angular,javascript]
 
 在页面中，我们的数据可能是从服务器实时加载，或者动态变化的，假如我们希望在某些数据发生变化之后，提醒用户是这些数据产生了改变，那么我们可能会想到为这个数据的变化添加一个效果，例如下面这个样子
 
-![datachangge](http://o93mwnwp7.bkt.clouddn.com/github/ng-bind-3GIF.gif)
+![datachangge](http://cdn.thisjs.com/github/ng-bind-3GIF.gif)
 
 在angular中，我们可以使用ngAnimate来实现对应的效果
 
@@ -22,7 +22,7 @@ tags: [angular,javascript]
 
 这时，当数据发生变化之后，会自动添加`新数据-add`,`旧数据-remove`,`新数据-add-active`,`旧数据-remove-active`样式
 
-![add](http://o93mwnwp7.bkt.clouddn.com/github/ng-bind-type.png)
+![add](http://cdn.thisjs.com/github/ng-bind-type.png)
 
 这时，我们在SASS *(less)* 样式中，筛选包含`-add`的样式，为其添加变化中的效果
 

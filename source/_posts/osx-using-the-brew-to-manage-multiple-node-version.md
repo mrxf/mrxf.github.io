@@ -3,7 +3,7 @@ title: OS X中使用brew管理多个node版本
 date: 2017-04-18 21:58:16
 tags: [node,osx]
 ---
-<img src="http://o93mwnwp7.bkt.clouddn.com/thisjs/nodejs_header-03e90275ca.svg" width = "1050" alt="node list" align=center />
+<img src="http://cdn.thisjs.com/thisjs/nodejs_header-03e90275ca.svg" width = "1050" alt="node list" align=center />
 
 在使用Node进行开发的时候，有时候需要在不同的Node版本中进行切换。首先，跨平台的[**NVM**(Node Version Manager)](https://github.com/creationix/nvm)可以帮助我们很好的进行版本管理。
 
@@ -20,7 +20,7 @@ $ brew search node
 ```
 即可看到当前可用的版本
 
- <img src="http://o93mwnwp7.bkt.clouddn.com/thisjs/brew%20list.png" width = "680"  alt="node list" align=center />
+ <img src="http://cdn.thisjs.com/thisjs/brew%20list.png" width = "680"  alt="node list" align=center />
 
 
 ## 安装需要版本

@@ -5,7 +5,7 @@ tags: [gojs,javascript]
 ---
 
 [go.js](http://gojs.net/)是一个非常强大的图表库，使用gojs可以制作不同的图标效果
-![gojsIntro](http://o93mwnwp7.bkt.clouddn.com/github/gojsIntro.png)
+![gojsIntro](http://cdn.thisjs.com/github/gojsIntro.png)
 
 最近在使用go.js制作流程图效果，遇到了不同的问题，幸运的是，[官方社区](https://forum.nwoods.com/c/gojs)会非常快速的帮助解答遇到的每个问题
 
@@ -86,7 +86,7 @@ myDiagram.scrollMode = go.Diagram.InfiniteScroll;
 
  go.js为我们提供了非常方便的节点绕开方案，即遇到节点之后，连接线会自动绕开。
 
- ![绕开节点](http://o93mwnwp7.bkt.clouddn.com/github/linkrout.png)
+ ![绕开节点](http://cdn.thisjs.com/github/linkrout.png)
 
  这个只需在初始化连接线的时候，修改routing属性即可
 

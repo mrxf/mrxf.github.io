@@ -10,7 +10,7 @@ tags: CSS3
 
 使用CSS3 配合`box-shadow`即可实现类似的效果
 
-![呼吸灯](http://o93mwnwp7.bkt.clouddn.com/github/GIF.gif)
+![呼吸灯](http://cdn.thisjs.com/github/GIF.gif)
 
 <!--more-->
 

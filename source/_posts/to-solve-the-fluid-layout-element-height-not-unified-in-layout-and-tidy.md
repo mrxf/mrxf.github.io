@@ -6,19 +6,19 @@ tags: [javascript]
 
 在页面布局中，在使用float布局大量相同属性元素的时候，如果元素的高度不固定，某个元素的高度过高，可能会阻挡元素的“流动”，会出现如图的情况。
 
-![float](http://o93mwnwp7.bkt.clouddn.com/github/probfloat-long.png)
+![float](http://cdn.thisjs.com/github/probfloat-long.png)
 
 <!--more-->
 
 这时我们只要保证后面的高度也大于或等于该元素高度，即可让后面的元素流动到前面
 
-![float-succ](http://o93mwnwp7.bkt.clouddn.com/github/probfloat-long2.png)
+![float-succ](http://cdn.thisjs.com/github/probfloat-long2.png)
 
 所以一种常见的解决方案是
 
 ## 瀑布流
 
-![waterfull](http://o93mwnwp7.bkt.clouddn.com/github/probwaterfull.png)
+![waterfull](http://cdn.thisjs.com/github/probwaterfull.png)
 
 瀑布流的实现方法，网上已经有大量教程，详情参阅
 
@@ -30,7 +30,7 @@ tags: [javascript]
 
  有时候，我们可能并不需要瀑布流的布局，因为在展示某些数据的时候，会显得比较混乱。
 
- ![float3](http://o93mwnwp7.bkt.clouddn.com/github/probfloat-long3.png)
+ ![float3](http://cdn.thisjs.com/github/probfloat-long3.png)
 
  要实现该效果，只需如下几步
 

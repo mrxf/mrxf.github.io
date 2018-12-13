@@ -4,7 +4,7 @@ date: 2017-04-24 16:51:55
 tags: css3
 ---
 
-<img src="http://o93mwnwp7.bkt.clouddn.com/demo/phone/appshowcase.png" alt="手机展示效果" title="手机展示效果" />
+<img src="http://cdn.thisjs.com/demo/phone/appshowcase.png" alt="手机展示效果" title="手机展示效果" />
 
 最近在阅读[Codrops][1]时，遇到了一个不错的手机APP效果，想着可以用在视差滚动宣传页中，便尝试着也制作了一下。
 

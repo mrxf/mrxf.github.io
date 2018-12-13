@@ -4,7 +4,7 @@ date: 2017-03-21 10:21:15
 tags: [vue,lodash]
 ---
 
-![题图](http://o93mwnwp7.bkt.clouddn.com/url-address.jpg?imageView/2/w/500)
+![题图](http://cdn.thisjs.com/url-address.jpg?imageView/2/w/500)
 
 在使用[Hexo](https://hexo.io/)创建博客的时候，所有的博客内容为了与主题内容相同，使用了中文命名，导致生成的链接也是中文目录。
 
@@ -16,7 +16,7 @@ tags: [vue,lodash]
 * 所有字母小写
 * 空格变为- 
 
-![W3C命名方式](http://o93mwnwp7.bkt.clouddn.com/github/en-demo.png)
+![W3C命名方式](http://cdn.thisjs.com/github/en-demo.png)
 
 最初使用手动方式将文件名拷贝到[谷歌翻译](http://translate.google.cn/)，得到翻译结果之后，将翻译结果变为小写，将空格替换为"-"，由于重复操作太多，所以决定写个小工具，来进行后面的2步操作。
 
@@ -47,7 +47,7 @@ _.trim(str)
 ```
 所以初版就是这样子的
 
-![第一版功能](http://o93mwnwp7.bkt.clouddn.com/github/first-result.png)
+![第一版功能](http://cdn.thisjs.com/github/first-result.png)
 
 ## 添加翻译、复制功能
 

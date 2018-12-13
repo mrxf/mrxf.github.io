@@ -40,4 +40,4 @@ tags: javascript
 	});
 </script>
 ```
-![进入方向](http://o93mwnwp7.bkt.clouddn.com/github/mouseenter.png)
+![进入方向](http://cdn.thisjs.com/github/mouseenter.png)
