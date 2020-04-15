@@ -7,7 +7,7 @@ tags: 操作系统
 
 <!--more-->
 
-![问题图片](http://i.stack.imgur.com/3GHlJ.png)
+![问题图片](https://i.stack.imgur.com/3GHlJ.png)
 
 解决方案
 

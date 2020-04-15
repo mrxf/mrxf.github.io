@@ -3,7 +3,7 @@ title: 前后端分离的身份认证(一)：JSON WEB TOKEN介绍
 date: 2017-09-25 08:25:59
 tags: [jwt, 前端]
 ---
-![安全](http://cdn.thisjs.com/blog/software-720x380.jpg)
+![安全](https://cdn.thisjs.com/blog/software-720x380.jpg)
 
 随着前端单页面APP的发展，前后端分离成为了现在开发的一种趋势，用户身份认证，发生了一系列的变化。传统的Cookie, Session验证方式存在跨域、扩展性的限制，Token验证方式成为了一个很好的替代选择。
 

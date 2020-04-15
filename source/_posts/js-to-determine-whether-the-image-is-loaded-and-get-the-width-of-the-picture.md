@@ -11,7 +11,7 @@ tags: javascript
 ```html
 <script type="text/javascript">
 var obj=new Image();
-obj.src="http://www.phpernote.com/uploadfiles/editor/201107240502201179.jpg";
+obj.src="https://cdn.thisjs.com/github/ngFilter.jpg";
 obj.onload=function(){
 	alert('图片的宽度为：'+obj.width+'；图片的高度为：'+obj.height);
 	document.getElementById("mypic").innnerHTML="<img src='"+this.src+"' />";
@@ -23,7 +23,7 @@ obj.onload=function(){
 ```html
 <script type="text/javascript">
 var obj=new Image();
-obj.src="http://www.phpernote.com/uploadfiles/editor/201107240502201179.jpg";
+obj.src="https://cdn.thisjs.com/github/ngFilter.jpg";
 obj.onreadystatechange=function(){
 	if(this.readyState=="complete"){
 		alert('图片的宽度为：'+obj.width+'；图片的高度为：'+obj.height);

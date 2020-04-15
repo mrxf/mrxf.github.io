@@ -12,7 +12,7 @@ tags: javascript
 
 <!--more-->
 
-![圆形直径](http://images.cnitblog.com/i/599390/201404/161747198221329.jpg)
+![圆形直径](https://images.cnitblog.com/i/599390/201404/161747198221329.jpg)
 
 最终自己也想到了一个容易理解的方案，那就是当鼠标进入容器的时候，判断鼠标距离哪个边框更加近，就可以得到是从那个方向进入的。
 
@@ -40,4 +40,4 @@ tags: javascript
 	});
 </script>
 ```
-![进入方向](http://cdn.thisjs.com/github/mouseenter.png)
+![进入方向](https://cdn.thisjs.com/github/mouseenter.png)

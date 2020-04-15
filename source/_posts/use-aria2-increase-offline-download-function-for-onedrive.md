@@ -4,7 +4,7 @@ date: 2018-03-07 21:22:10
 tags: [centos]
 ---
 
-![OneDrive](http://cdn.thisjs.com/blog/Microsoft-OneDrive.jpg)
+![OneDrive](https://cdn.thisjs.com/blog/Microsoft-OneDrive.jpg)
 
 本文介绍如何利用云服务器，为OneDrive增加离线下载功能。在充分利用云服务器空闲资源的同时，享受OneDrive强大的在线影音、文档编辑功能。
 
@@ -267,15 +267,15 @@ nginx -s reload
 
 打开对应地址，发现已经成功了
 
-![成功界面](http://cdn.thisjs.com/blog/linksuccess.png)
+![成功界面](https://cdn.thisjs.com/blog/linksuccess.png)
 
 测试下载文件
 
-![下载文件](http://cdn.thisjs.com/blog/downafile.png)
+![下载文件](https://cdn.thisjs.com/blog/downafile.png)
 
 注意设置dir为OneDrive下的目录
 
-![成功转存](http://cdn.thisjs.com/blog/down-upload-success.png)
+![成功转存](https://cdn.thisjs.com/blog/down-upload-success.png)
 
 过一会儿在Onedrive上，就会发现文件已经成功转存。
 

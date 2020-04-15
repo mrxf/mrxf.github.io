@@ -4,7 +4,7 @@ date: 2016-12-01 15:44:08
 tags: [angular,javascript]
 ---
 
-![ng](http://cdn.thisjs.com/github/ngrepeatAngularJS-header-image.png)
+![ng](https://cdn.thisjs.com/github/ngrepeatAngularJS-header-image.png)
 
 在使用Angular进行开发的过程中，使用ng-repeat生成多个元素之后，如果元素的宽高是auto，那么我们在使用
 `css()`、`getComputedStyle`、`offsetHeight`或者`clientHeight`都会获取到0，我们无法获取到元素的实际高度。

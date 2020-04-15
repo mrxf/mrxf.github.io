@@ -6,7 +6,7 @@ tags: [angular,javascript,material]
 
 [Angle](https://wrapbootstrap.com/theme/angle-bootstrap-admin-template-WB04HF123)是一款强大的后台界面模板，提供了包括jQuery、reactjs、angular、material、backend-mean等不同开发语言以及模式的模板。使用该模板可以开发出非常漂亮的管理界面
 
-![Angle](http://cdn.thisjs.com/github/angle-dash.png)
+![Angle](https://cdn.thisjs.com/github/angle-dash.png)
 
 以下是使用Material版本的Angle的开发介绍
 
@@ -174,7 +174,7 @@ sass和less的开发目录位于`/master/sass/`或`/master/less/`目录下。
 
 这时候在服务器环境下打开，输入对应的路由地址，预览页面吧。
 
-![Hello world](http://cdn.thisjs.com/github/angle-view.png)
+![Hello world](https://cdn.thisjs.com/github/angle-view.png)
 
 
 # 部署
@@ -278,7 +278,7 @@ bower install whirl spinkit loaders.css
 
 这时，在对应的页面加载的时候，可以看到资源已经被加载进来
 
-![spinner](http://cdn.thisjs.com/github/angleReslove.png)
+![spinner](https://cdn.thisjs.com/github/angleReslove.png)
 
 **使用插件为我们提供的功能**
 
@@ -296,7 +296,7 @@ bower install whirl spinkit loaders.css
           .sk-cube4.sk-cube
           .sk-cube3.sk-cube
 ```
-![spinner](http://cdn.thisjs.com/github/angle-spinner.gif)
+![spinner](https://cdn.thisjs.com/github/angle-spinner.gif)
 
 更多效果可以参阅
  [whirl](http://jh3y.github.io/whirl/) 
