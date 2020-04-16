@@ -3,7 +3,7 @@ title: 使用JavaScript判断元素中是否含有某个样式
 date: 2018-03-28 20:18:26
 tags: [JavaScript]
 ---
-![题图](https://cdn.zhshy.me/img/hero.png)
+![题图](https://cdn.thisjs.com/img/hero.png)
 
 看到这个题目，立马想到的就是 **element.classList.contains()** 和 **$(element).hasClass()** 方法。
 
@@ -11,7 +11,7 @@ tags: [JavaScript]
 
 <!--more-->
 
-![classList的兼容性](https://cdn.zhshy.me/img/classlist-can-use.png)
+![classList的兼容性](https://cdn.thisjs.com/img/classlist-can-use.png)
 <p style="text-align: center;font-size: 10px;"> <i>classList的兼容性</i> </p>
 
 假如我们有如下测试元素
