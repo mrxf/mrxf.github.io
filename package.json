@@ -7,7 +7,9 @@
   },
   "scripts": {
     "build": "hexo generate",
-    "clean": "hexo clean"
+    "clean": "hexo clean",
+    "serve": "hexo serve",
+    "deploy": "hexo deploy"
   },
   "dependencies": {
     "hexo": "^3.2.0",

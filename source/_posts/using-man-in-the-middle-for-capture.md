@@ -4,7 +4,7 @@ date: 2018-04-07 22:03:51
 tags: [中间人, 开发, 抓包]
 ---
 
-[![](https://cdn.zhshy.me/img/20180405173639.png)](https://cdn.zhshy.me/img/20180405173639.png)
+[![](https://cdn.thisjs.com/img/20180405173639.png)](https://cdn.thisjs.com/img/20180405173639.png)
 
 ## 背景介绍
 
@@ -21,7 +21,7 @@ tags: [中间人, 开发, 抓包]
 
 这项操作其实还可以简化，那就是不需要手机进行任何设置，我们就可以直接直接获取手机上的数据包。这时候，我们就可以使用神奇的 **Ettercap** 了，该软件可以实现一个中间人攻击的思路，进行抓包分析。
 
-![](https://cdn.zhshy.me/img/mitmblogeng-1.png)
+![](https://cdn.thisjs.com/img/mitmblogeng-1.png)
 
 > 中间人攻击是指**攻击**者与通讯的两端分别建立独立的联系，并交换其所收到的数据，使通讯的两端认为他们正在通过一个私密的连接与对方直接对话，但事实上整个会话都被攻击者完全控制
 
@@ -96,11 +96,11 @@ Nmap done: 256 IP addresses (6 hosts up) scanned in 3.07 seconds
 ```
 sudo ettercap -C
 ```
-[![](https://cdn.zhshy.me/img/etttercap-index.png)](https://cdn.zhshy.me/img/etttercap-index.png)
+[![](https://cdn.thisjs.com/img/etttercap-index.png)](https://cdn.thisjs.com/img/etttercap-index.png)
 
 进入该界面后，依次选择`Sniff` -&gt; `Unified sniffing...U` -&gt; 输入网络类型值(_参考上面查询IP的参数，默认en0_) -&gt; `Hosts` -&gt; `Scan for hosts` -&gt; `Hosts list`
 
-[![](https://cdn.zhshy.me/img/ettercap-hosts-list.png)](https://cdn.zhshy.me/img/ettercap-hosts-list.png)
+[![](https://cdn.thisjs.com/img/ettercap-hosts-list.png)](https://cdn.thisjs.com/img/ettercap-hosts-list.png)
 
 这里可以看到扫描出来的同网段IP，在编写该文章的时候，有些其他设备已经离线了，因此本列表中扫描到的与使用namp扫描出来数量不同。但是如果记住了对应设备的IP，依旧可以使用。
 
@@ -112,13 +112,13 @@ sudo ettercap -C
 
 这时，查看Current targets可以看到当前的目标列表。
 
-[![](https://cdn.zhshy.me/img/ettercap-current-targets.png)](https://cdn.zhshy.me/img/ettercap-current-targets.png)
+[![](https://cdn.thisjs.com/img/ettercap-current-targets.png)](https://cdn.thisjs.com/img/ettercap-current-targets.png)
 
 执行`MiTM` -&gt; `ARP poisoning...` -&gt; Parameters为空即可
 
 这时，已经通过ARP欺骗的方式，成功开始了中间人攻击。可以通过`View` -&gt; `Statistics`查看该设备的数据情况。
 
-[![](https://cdn.zhshy.me/img/ettercap-statistics-view.png)](https://cdn.zhshy.me/img/ettercap-statistics-view.png)
+[![](https://cdn.thisjs.com/img/ettercap-statistics-view.png)](https://cdn.thisjs.com/img/ettercap-statistics-view.png)
 
 ### 4. 分析数据
 
@@ -135,7 +135,7 @@ ip.addr == 192.168.199.153 &amp;&amp; http.request.method == "POST"
 
 我在手机的一个非https网站(www.div.io)中进行了登录测试。可以在wireshark中获取到了POST的JSON数据信息。
 
-[![](https://cdn.zhshy.me/img/wireshark-post-userinfo-data.png)](https://cdn.zhshy.me/img/wireshark-post-userinfo-data.png)
+[![](https://cdn.thisjs.com/img/wireshark-post-userinfo-data.png)](https://cdn.thisjs.com/img/wireshark-post-userinfo-data.png)
 
 可以看到登录的用户名密码都是以明文的方式传输的，非常方便的进行了数据抓包调试。
 
@@ -145,11 +145,11 @@ ip.addr == 192.168.199.153 &amp;&amp; http.request.method == "POST"
 
 将过滤的请求方式改为GET，在随便找到一个HTML页面之后，会发现其中带有Cookie信息。
 
-[![](https://cdn.zhshy.me/img/wireshark-cookie-info.png)](https://cdn.zhshy.me/img/wireshark-cookie-info.png)
+[![](https://cdn.thisjs.com/img/wireshark-cookie-info.png)](https://cdn.thisjs.com/img/wireshark-cookie-info.png)
 
 将该Cookie信息，保存下来，在任意浏览器中导入该Cookie信息，即可实现『登录』的效果。
 
-[![](https://cdn.zhshy.me/img/wireshark-cookie-login.png)](https://cdn.zhshy.me/img/wireshark-cookie-login.png)
+[![](https://cdn.thisjs.com/img/wireshark-cookie-login.png)](https://cdn.thisjs.com/img/wireshark-cookie-login.png)
 
 ## 小结
 
