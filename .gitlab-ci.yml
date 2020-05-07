@@ -9,7 +9,7 @@ before_script:
 test_login:
   stage: test
   script:
-    - ssh $SSH_USER@SSH_HOST 'pwd'
+    - ssh $SSH_USER@$SSH_HOST 'pwd'
 
 # build_docker:
 #   stage: build
