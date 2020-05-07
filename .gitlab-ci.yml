@@ -1,0 +1,10 @@
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+
+build_docker:
+  stage: build
+  image: docker:latest
+  script:
+    - docker build -t $CI_REGISTRY/x_hub/blog:latest .
+    - docker push $CI_REGISTRY/x_hub/blog:latest
