@@ -2,10 +2,6 @@ before_script:
 
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-  - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
 
 build_docker:
   stage: build
@@ -21,4 +17,8 @@ build_docker:
 publish:
   stage: deploy
   script:
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
     - ssh $SSH_USER@$SSH_HOST $BASH_PATH/blog.sh
