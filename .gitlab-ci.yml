@@ -7,18 +7,18 @@ before_script:
   - chmod 700 ~/.ssh
   - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
 
-test_login:
-  stage: test
+build_docker:
+  stage: build
+  image: $CI_REGISTRY/ezone-public/docker:dind
+  services:
+     - name: $CI_REGISTRY/ezone-public/docker:dind
+      alias: docker
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/x_hub/blog:latest .
+    - docker push $CI_REGISTRY/x_hub/blog:latest
+
+publish:
+  stage: publish
   script:
     - ssh $SSH_USER@$SSH_HOST $BASH_PATH/blog.sh
-
-# build_docker:
-#   stage: build
-#   image: $CI_REGISTRY/ezone-public/docker:dind
-#   services:
-#      - name: $CI_REGISTRY/ezone-public/docker:dind
-#       alias: docker
-#   script:
-#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#     - docker build -t $CI_REGISTRY/x_hub/blog:latest .
-#     - docker push $CI_REGISTRY/x_hub/blog:latest
