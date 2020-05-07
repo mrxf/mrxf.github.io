@@ -19,6 +19,6 @@ build_docker:
     - docker push $CI_REGISTRY/x_hub/blog:latest
 
 publish:
-  stage: publish
+  stage: deploy
   script:
     - ssh $SSH_USER@$SSH_HOST $BASH_PATH/blog.sh
