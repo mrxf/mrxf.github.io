@@ -1,10 +1,23 @@
-build_docker:
-  stage: build
-  image: $CI_REGISTRY/ezone-public/docker:dind
-  services:
-     - name: $CI_REGISTRY/ezone-public/docker:dind
-       alias: docker
+before_script:
+
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+
+test_login:
+  stage: test
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY/x_hub/blog:latest .
-    - docker push $CI_REGISTRY/x_hub/blog:latest
+    - ssh $SSH_USER@SSH_HOST 'pwd'
+
+# build_docker:
+#   stage: build
+#   image: $CI_REGISTRY/ezone-public/docker:dind
+#   services:
+#      - name: $CI_REGISTRY/ezone-public/docker:dind
+#       alias: docker
+#   script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t $CI_REGISTRY/x_hub/blog:latest .
+#     - docker push $CI_REGISTRY/x_hub/blog:latest
