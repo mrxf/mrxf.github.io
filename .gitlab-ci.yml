@@ -1,7 +1,7 @@
-before_script:
+# before_script:
 
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
+#   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#   - eval $(ssh-agent -s)
 
 build_docker:
   stage: build
@@ -14,11 +14,11 @@ build_docker:
     - docker build -t $CI_REGISTRY/x_hub/blog:latest .
     - docker push $CI_REGISTRY/x_hub/blog:latest
 
-publish:
-  stage: deploy
-  script:
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
-    - ssh $SSH_USER@$SSH_HOST $BASH_PATH/blog.sh
+# publish:
+#   stage: deploy
+#   script:
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#     - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
+#     - ssh $SSH_USER@$SSH_HOST $BASH_PATH/blog.sh
