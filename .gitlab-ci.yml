@@ -9,9 +9,9 @@ before_script:
 
 build_docker:
   stage: build
-  image: $CI_REGISTRY/ezone-public/docker:dind
+  image: hub.docker.com/_/docker:19-dind
   services:
-  - name: $CI_REGISTRY/ezone-public/docker:dind
+  - name: hub.docker.com/_/docker:19-dind
     alias: docker
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
