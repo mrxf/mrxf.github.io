@@ -5,7 +5,7 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh-keygen -R $SSH_HOST
+  - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
 
 test_login:
   stage: test
