@@ -6,6 +6,7 @@ build:gitbub:
   stage: build
   image: node:latest
   script:
+    - npm install
     - npm run build
 
 publish:github:
