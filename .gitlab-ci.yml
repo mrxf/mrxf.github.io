@@ -11,6 +11,8 @@ build:gitbub:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
+    - git config --global user.email "zhshy123@foxmail.com"
+    - git config --global user.name "mrxf"
     - npm install
     - npm run build
     - npm run deploy
