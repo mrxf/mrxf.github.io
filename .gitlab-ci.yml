@@ -1,22 +1,32 @@
-
-build_docker:
+build:gitbub:
   stage: build
-  image: $CI_REGISTRY/ezone-public/docker:dind
-  services:
-  - name: $CI_REGISTRY/ezone-public/docker:dind
-    alias: docker
+  image: node:latest
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY/x_hub/blog:latest .
-    - docker push $CI_REGISTRY/x_hub/blog:latest
+    - npm run build
 
-publish:
+publish:github:
   stage: deploy
   script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
-    - ssh $SSH_USER@$SSH_HOST $BASH_PATH/blog.sh
+    - npm run deploy
+
+# build:docker:
+#   stage: build
+#   image: $CI_REGISTRY/ezone-public/docker:dind
+#   services:
+#   - name: $CI_REGISTRY/ezone-public/docker:dind
+#     alias: docker
+#   script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t $CI_REGISTRY/x_hub/blog:latest .
+#     - docker push $CI_REGISTRY/x_hub/blog:latest
+
+# publish:docker:
+#   stage: deploy
+#   script:
+#     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#     - eval $(ssh-agent -s)
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#     - ssh-keyscan -t rsa $SSH_HOST >> ~/.ssh/known_hosts
+#     - ssh $SSH_USER@$SSH_HOST $BASH_PATH/blog.sh
