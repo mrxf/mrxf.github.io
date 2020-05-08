@@ -1,10 +1,10 @@
-cache:
-  paths:
-    - node_modules/
+# cache:
+#   paths:
+#     - node_modules/
 
 build:gitbub:
   stage: build
-  image: node:latest
+  image: node:12.16.3-alpine3.10
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
