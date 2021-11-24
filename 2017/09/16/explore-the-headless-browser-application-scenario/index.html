@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                探索无头浏览器的应用场景 |
+                    
+                        This Js
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="Headless browser会带给我非常亲切的感觉，因为总能让我回想起按键精灵和AutoHotKey这两款非常实用的小工具。">
+<meta name="keywords" content="无头浏览器,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="探索无头浏览器的应用场景">
+<meta property="og:url" content="http://www.thisjs.com/2017/09/16/explore-the-headless-browser-application-scenario/index.html">
+<meta property="og:site_name" content="This Js">
+<meta property="og:description" content="Headless browser会带给我非常亲切的感觉，因为总能让我回想起按键精灵和AutoHotKey这两款非常实用的小工具。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.thisjs.com/blog/automateexpenses.jpg">
+<meta property="og:image" content="https://cdn.thisjs.com/random.png">
+<meta property="og:updated_time" content="2020-05-08T03:25:09.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="探索无头浏览器的应用场景">
+<meta name="twitter:description" content="Headless browser会带给我非常亲切的感觉，因为总能让我回想起按键精灵和AutoHotKey这两款非常实用的小工具。">
+<meta name="twitter:image" content="https://cdn.thisjs.com/blog/automateexpenses.jpg">
+            
+                <link rel="alternative" href="/atom.xml" title="This Js" type="application/atom+xml">
+                
+                    
+                        <link rel="icon" href="/favicon.png">
+                        
+                            <link rel="stylesheet" href="/css/style.css">
+                                
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0056486684ce6d758dfb1dc18c601291";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">张树源</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">小凡的秘密花园</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/中间人/" style="font-size: 10px;">中间人</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/无头浏览器/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.thisjs.com/">書逺的旅行日志</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.zhangyanlu.com/">璐水珠</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://muyunyun.cn/">牧云云</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/coco1s">ChokCoco</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.h5jun.com/">十年踪迹的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">张树源</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">张树源</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">小凡的秘密花园</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-explore-the-headless-browser-application-scenario" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/16/explore-the-headless-browser-application-scenario/" class="article-date">
+  	<time datetime="2017-09-16T02:27:09.000Z" itemprop="datePublished">2017-09-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      探索无头浏览器的应用场景
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/无头浏览器/">无头浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.2.1/css/hint.min.css"><p><img src="https://cdn.thisjs.com/blog/automateexpenses.jpg" alt="自动化操作"></p>
+<p><a href="https://en.wikipedia.org/wiki/Headless_browser" target="_blank" rel="noopener">Headless browser</a>会带给我非常亲切的感觉，因为总能让我回想起<a href="http://www.anjian.com/" target="_blank" rel="noopener">按键精灵</a>和<a href="https://www.autohotkey.com/" target="_blank" rel="noopener">AutoHotKey</a>这两款非常实用的小工具。</p>
+<a id="more"></a>
+<p>能有这样的感觉，大概是因为它们都操作基于用户界面，但是在运行时，可以让用户忽略用户界面吧。</p>
+<p>无头浏览器有哪些实用的使用场景呢？</p>
+<h1 id="1-自动化E2E测试"><a href="#1-自动化E2E测试" class="headerlink" title="1. 自动化E2E测试"></a>1. 自动化E2E测试</h1><p>常用的E2E测试工具如<code>nightwatch</code>,<code>Karma</code>，都支持无头浏览器，这样在测试时，无需打开UI界面，即可完成对应的测试内容。</p>
+<h1 id="2-解决登录问题"><a href="#2-解决登录问题" class="headerlink" title="2. 解决登录问题"></a>2. 解决登录问题</h1><p>在使用一些网站API时，会遇到一些网站需要先登录的情况。</p>
+<p>标准的网站，允许使用Post方法发送用户名及密码，返回对应的Token，之后的请求即可使用该Token，这时候我们可以直接使用<a href="https://www.npmjs.com/package/request" target="_blank" rel="noopener">Request</a>包即可。</p>
+<p>但是遇到一些网站，并没有对外开放API接口，每次请求数据是通过登录后的Cookis进行判断。这时候我们也可以使用Request,截取<code>Set-Cookie</code> 头部信息即可。</p>
+<p>但是，还有一些网站，在登录时候，需要添加服务器发送给客户端的安全码，这个时候如果单单使用<code>Request</code>就有些费力了。<br><img src="https://cdn.thisjs.com/random.png" alt="识别码"></p>
+<p>这时，使用无头浏览器可以很好的解决这个问题，这里使用Google Chrome的<a href="https://github.com/GoogleChrome/puppeteer" target="_blank" rel="noopener">puppeteer</a>编写例子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">'puppeteer'</span>);</span><br><span class="line"></span><br><span class="line">(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch();</span><br><span class="line">    <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage();</span><br><span class="line">    <span class="keyword">await</span> page.goto(<span class="string">'http://youruri/api?redirect=anotheruri'</span>);  <span class="comment">// 进入对应的登录页面</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里测试的页面用户名input为autofocus属性</span></span><br><span class="line"><span class="comment">     * 不同页面可以使用选择器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">await</span> page.type(<span class="string">'username'</span>);</span><br><span class="line">    <span class="keyword">await</span> page.press(<span class="string">'Tab'</span>);</span><br><span class="line">    <span class="keyword">await</span> page.type(<span class="string">'password'</span>);</span><br><span class="line">    <span class="keyword">await</span> page.press(<span class="string">'Enter'</span>);</span><br><span class="line">    page.on(<span class="string">'response'</span>, res =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span>(res.hasOwnProperty(<span class="string">'headers'</span>))&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> res.headers)&#123;</span><br><span class="line">                <span class="keyword">if</span>(key === <span class="string">'set-cookie'</span>)&#123;</span><br><span class="line">                   <span class="comment">// 在这里进行获取Cookie信息操作</span></span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">await</span> page.waitForNavigation();</span><br><span class="line">    browser.close();</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>简单几步，就可以获取到对应的Cookie信息，将该Cookie信息保存起来，就可以在其他请求中使用了。</p>
+<h1 id="3-网络爬虫"><a href="#3-网络爬虫" class="headerlink" title="3. 网络爬虫"></a>3. 网络爬虫</h1><p>在爬取一些网页时，对于普通的网页，我们可以直接使用Request, 发送GET请求，获取页面内容，然后进行分析，获取其中的数据。</p>
+<p>但是这里有一个缺陷，即我们只能获取到网页的HTML内容，无法获取到页面XHR获取到的内容，即我们无法执行页面的JS。<br>这就导致我们无法获取那些动态加载的数据，甚至大部分单页面APP。</p>
+<p>这时无头浏览器的作用就非常明显了，无头浏览器即没有用户界面的浏览器，浏览器功能全部存在，因此执行JS也不在话下。</p>
+<h2 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h2><p>我们使用Request，get请求知乎某用户的关注列表<a href="https://www.zhihu.com/people/zhang-shu-yuan-18/following" target="_blank" rel="noopener">https://www.zhihu.com/people/zhang-shu-yuan-18/following</a>,然后使用<a href="https://www.npmjs.com/package/cheerio" target="_blank" rel="noopener">Cheerio</a>获取关注的用户名。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="built_in">require</span>(<span class="string">'request'</span>);</span><br><span class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>);</span><br><span class="line"></span><br><span class="line">request.get(<span class="string">'https://www.zhihu.com/people/zhang-shu-yuan-18/following'</span>, (error, res, body) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> $ = cheerio.load(body);</span><br><span class="line">    $(<span class="string">'.UserLink-link'</span>).each(<span class="function">(<span class="params">index, item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log($(item).text());</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>会发现只有三个结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">柳佳</span><br><span class="line">李沫霖</span><br><span class="line">Jim Liu</span><br></pre></td></tr></table></figure></p>
+<p>这是因为剩余的内容需要Ajax加载，这时，我们使用<a href="https://github.com/GoogleChrome/puppeteer" target="_blank" rel="noopener">puppeteer</a>进行获取。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">'puppeteer'</span>);</span><br><span class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>);</span><br><span class="line">(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch();</span><br><span class="line">    <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage();</span><br><span class="line">    <span class="keyword">await</span> page.goto(<span class="string">'https://www.zhihu.com/people/zhang-shu-yuan-18/following'</span>);</span><br><span class="line">    <span class="keyword">let</span> pageContent =<span class="keyword">await</span> page.content();</span><br><span class="line">    <span class="keyword">const</span> $ = cheerio.load(pageContent);</span><br><span class="line">    $(<span class="string">'.UserLink-link'</span>).each(<span class="function">(<span class="params">index, item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log($(item).text());</span><br><span class="line">    &#125;)</span><br><span class="line">    browser.close();</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>这时，一整页的数据全部加在进来了，打印<code>$(&#39;.UserLink-link&#39;).length</code>会发现有40条数据。</p>
+<blockquote>
+<p>当然，如果找到了该页面加载用户的API，直接使用该API请求数据是最方便的了</p>
+</blockquote>
+<h1 id="4-SSR服务端渲染"><a href="#4-SSR服务端渲染" class="headerlink" title="4. SSR服务端渲染"></a>4. SSR服务端渲染</h1><p>由于有些搜索引擎在抓取页面的时候，并不执行页面里的JS，因此会导致很多单页面APP的内容无法被搜索引擎更好的收录。</p>
+<p>这时，可以使用无头浏览器，做服务端渲染。在判断访问来路为<code>XXX-spider</code>之后，将页面内容，在服务端使用无头浏览器执行一遍，将执行后的HTML内容，返回给搜索引擎，这样搜索引擎就可以获取到执行JS后的内容了。</p>
+<blockquote>
+<p>最后，这里收集了一些常用的无头浏览器</p>
+</blockquote>
+<ul>
+<li><a href="http://phantomjs.org/" target="_blank" rel="noopener">Phantomjs</a> Webkit内核的无头浏览器，广泛应用于E2E测试</li>
+<li><a href="https://slimerjs.org/" target="_blank" rel="noopener">SlimerJS</a> 类似Phantomjs，使用Gecko内核</li>
+<li><a href="https://github.com/GoogleChrome/puppeteer" target="_blank" rel="noopener">puppeteer</a> Google Chrome团队推出的，可以直接在node中使用</li>
+</ul>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://stackoverflow.com/questions/18539491/headless-browser-and-scraping-solutions" target="_blank" rel="noopener">Headless Browser and scraping</a></li>
+<li><a href="http://www.infoq.com/cn/news/2014/02/nightwatch" target="_blank" rel="noopener">使用Nightwatch进行端到端测试</a></li>
+<li><a href="http://python.jobbole.com/86415/" target="_blank" rel="noopener">运用phantomjs无头浏览器破解四种反爬虫技术</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/21/my-view-of-fibonacci/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          一个前端眼中的斐波那契数列
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/24/mobile-app-showcase-effect/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">移动应用展示收纳效果</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'thisjs'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2021 张树源
+    	</div>
+      	<div class="footer-right">
+      		<a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17023228号-3</a>
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdn.bootcdn.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

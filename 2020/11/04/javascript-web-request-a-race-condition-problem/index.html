@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                JavaScript网络请求(一)：处理race condition竞态问题 |
+                    
+                        This Js
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="竞争危害（race hazard）又名竞态条件、竞争条件（race condition），它旨在描述一个系统或者进程的输出依赖于不受控制的事件出现顺序或者出现时机  在前端中的表现常见于异步操作的结果返回的时间顺序和预期不同，比如常见的网络请求结果的顺序。">
+<meta name="keywords" content="javascript,react,rxjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript网络请求(一)：处理race condition竞态问题">
+<meta property="og:url" content="http://www.thisjs.com/2020/11/04/javascript-web-request-a-race-condition-problem/index.html">
+<meta property="og:site_name" content="This Js">
+<meta property="og:description" content="竞争危害（race hazard）又名竞态条件、竞争条件（race condition），它旨在描述一个系统或者进程的输出依赖于不受控制的事件出现顺序或者出现时机  在前端中的表现常见于异步操作的结果返回的时间顺序和预期不同，比如常见的网络请求结果的顺序。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.thisjs.com/blog_images/20211103163446.png">
+<meta property="og:image" content="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110414210895.jpg">
+<meta property="og:updated_time" content="2021-11-24T09:27:58.918Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript网络请求(一)：处理race condition竞态问题">
+<meta name="twitter:description" content="竞争危害（race hazard）又名竞态条件、竞争条件（race condition），它旨在描述一个系统或者进程的输出依赖于不受控制的事件出现顺序或者出现时机  在前端中的表现常见于异步操作的结果返回的时间顺序和预期不同，比如常见的网络请求结果的顺序。">
+<meta name="twitter:image" content="https://cdn.thisjs.com/blog_images/20211103163446.png">
+            
+                <link rel="alternative" href="/atom.xml" title="This Js" type="application/atom+xml">
+                
+                    
+                        <link rel="icon" href="/favicon.png">
+                        
+                            <link rel="stylesheet" href="/css/style.css">
+                                
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0056486684ce6d758dfb1dc18c601291";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">张树源</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">小凡的秘密花园</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/中间人/" style="font-size: 10px;">中间人</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/无头浏览器/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.thisjs.com/">書逺的旅行日志</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.zhangyanlu.com/">璐水珠</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://muyunyun.cn/">牧云云</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/coco1s">ChokCoco</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.h5jun.com/">十年踪迹的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">张树源</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">张树源</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">小凡的秘密花园</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-javascript-web-request-a-race-condition-problem" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/11/04/javascript-web-request-a-race-condition-problem/" class="article-date">
+  	<time datetime="2020-11-04T16:31:42.000Z" itemprop="datePublished">2020-11-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript网络请求(一)：处理race condition竞态问题
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.2.1/css/hint.min.css"><blockquote>
+<p>竞争危害（race hazard）又名竞态条件、竞争条件（race condition），它旨在描述一个系统或者进程的输出依赖于不受控制的事件出现顺序或者出现时机</p>
+</blockquote>
+<p>在前端中的表现常见于异步操作的结果返回的时间顺序和预期不同，比如常见的网络请求结果的顺序。</p>
+<a id="more"></a>
+<p>首先看一个异步请求返回结果顺序不同，导致数据不符合预期的场景。</p>
+<figure><br>    <video controls src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110409184214.mp4"></video><br>    <figcaption>先请求的数据后返回，导致覆盖掉了最新的请求</figcaption><br></figure>
+
+<p>以上功能的完整实现代码如下，我们接下来需要一点点的对其进行改动。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> UserSearch: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setData] = useState&lt;<span class="built_in">any</span>&gt;(&#123;&#125;);</span><br><span class="line">  <span class="keyword">const</span> [loading, setLoading] = useState&lt;<span class="built_in">boolean</span>&gt;(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> run = useCallback(<span class="keyword">async</span> (name: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">    setLoading(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">const</span> data = <span class="keyword">await</span> Axios.get(<span class="string">"/thirdparty/users"</span>, &#123; params: &#123; name &#125; &#125;);</span><br><span class="line">    setData(data.data);</span><br><span class="line">    setLoading(<span class="literal">false</span>);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> onSearch = useCallback(</span><br><span class="line">    (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (e.target.value) &#123;</span><br><span class="line">        run(e.target.value);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [run]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">'inner-card'</span>&gt;</span><br><span class="line">      &lt;Card&gt;</span><br><span class="line">        &lt;Input.Search onChange=&#123;onSearch&#125; placeholder=<span class="string">'请输入用户名进行搜索'</span> /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Card&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Card&gt;</span></span><br><span class="line"><span class="regexp">        &lt;List</span></span><br><span class="line"><span class="regexp">          loading=&#123;loading&#125;</span></span><br><span class="line"><span class="regexp">          itemLayout='horizontal'</span></span><br><span class="line"><span class="regexp">          dataSource=&#123;data?.items&#125;</span></span><br><span class="line"><span class="regexp">          renderItem=&#123;(item: any) =&gt; (</span></span><br><span class="line"><span class="regexp">            &lt;List.Item&gt;</span></span><br><span class="line"><span class="regexp">              &lt;List.Item.Meta</span></span><br><span class="line"><span class="regexp">                avatar=&#123;&lt;Avatar src=&#123;item.avatar_url&#125; /</span>&gt;&#125;</span><br><span class="line">                title=&#123;&lt;a href=&#123;item.html_url&#125;&gt;&#123;item.login&#125;&lt;<span class="regexp">/a&gt;&#125;</span></span><br><span class="line"><span class="regexp">                description=&#123;item.node_id&#125;</span></span><br><span class="line"><span class="regexp">              /</span>&gt;</span><br><span class="line">            &lt;<span class="regexp">/List.Item&gt;</span></span><br><span class="line"><span class="regexp">          )&#125;</span></span><br><span class="line"><span class="regexp">        /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/Card&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="使用debounce"><a href="#使用debounce" class="headerlink" title="使用debounce"></a>使用debounce</h2><p>最常见的<strong>缓解</strong>该状况的方案便是使用debounce，在用户输入完成之后，再发起请求。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> run = useCallback(</span><br><span class="line">  debounce(<span class="keyword">async</span> (name: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">    setLoading(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">const</span> data = <span class="keyword">await</span> Axios.get(<span class="string">"/thirdparty/users"</span>, &#123; params: &#123; name &#125; &#125;);</span><br><span class="line">    setData(data.data);</span><br><span class="line">    setLoading(<span class="literal">false</span>);</span><br><span class="line">  &#125;, <span class="number">500</span>),</span><br><span class="line">  []</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="wp-block-video"><video controls src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110410115425.mov"></video><figcaption>使用debounce后，在全部输入结束后再发起请求</figcaption></figure>
+
+<p>这样，就可以极大的<strong>缓解</strong>了请求返回顺序不同导致的错误问题。</p>
+<p>但是这样已经改变了需求的内容，原本期望的是实时更新，现在变成了等输入完成之后再更新，如果用户输入的内容比较长，界面就会一直空白，因此还需要考虑其他的解决方案。</p>
+<h2 id="根据请求ID，对所需的数据做取舍"><a href="#根据请求ID，对所需的数据做取舍" class="headerlink" title="根据请求ID，对所需的数据做取舍"></a>根据请求ID，对所需的数据做取舍</h2><p>我们在每次请求的时候，都生成一个随机的字符串数据（自增ID，时间戳、nanoID）带入请求中去，后端在返回数据的同时，再原封不动的将该requestID返回；本地也有一个全局变量，记录最新的requestID。</p>
+<p>在数据返回之后，我们拿数据中的requestID与本地的最新的requestID做比对，如果相等，则展示数据，不相等，则舍掉数据。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只记录最新的请求ID</span></span><br><span class="line"><span class="keyword">const</span> reqId = useRef&lt;<span class="built_in">number</span>&gt;(+<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> run = useCallback(<span class="keyword">async</span> (name: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">  reqId.current = +<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  setLoading(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> Axios.get(<span class="string">"/thirdparty/users"</span>, &#123; params: &#123; name, reqId: reqId.current &#125; &#125;);</span><br><span class="line">  <span class="keyword">if</span> (reqId.current.toString() === data.data.reqId) &#123;</span><br><span class="line">    setData(data.data);</span><br><span class="line">  &#125;</span><br><span class="line">  setLoading(<span class="literal">false</span>);</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+<p>后端返回的数据格式：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"reqId"</span>: <span class="string">"1604456870887"</span>,</span><br><span class="line">  <span class="string">"total_count"</span>: <span class="number">228912</span>,</span><br><span class="line">  <span class="string">"incomplete_results"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"items"</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，根据请求ID的比对，我们就可以将旧的请求舍弃掉。</p>
+<figure class="wp-block-video"><video controls src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110410301420.mov"></video><figcaption>即使先请求的数据后返回，也会被舍弃</figcaption></figure>
+
+<p>这种方案的弊端太明显，需要依赖后端的配合，因此尝试寻找完全由前端处理的方案。</p>
+<h2 id="使用useEffect"><a href="#使用useEffect" class="headerlink" title="使用useEffect"></a>使用useEffect</h2><p>在使用ahooks的useRequest的时候，官方的文档中提到了这样一个API介绍</p>
+<blockquote>
+<p>默认情况下，新请求会覆盖旧请求。如果设置了 fetchKey，则可以实现多个请求并行，fetches 存储了多个请求的状态。外层的状态为最新触发的 fetches 数据。</p>
+</blockquote>
+<p>那么意味着useRequest是完全可以处理竞态问题的。我们用useRequest来尝试一下。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; run, data, loading &#125; = useRequest(</span><br><span class="line">  (name: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> param = <span class="keyword">new</span> URLSearchParams(&#123;</span><br><span class="line">      name,</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      url: <span class="string">"/thirdparty/users?"</span> + param,</span><br><span class="line">      method: <span class="string">"get"</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    manual: <span class="literal">true</span>,</span><br><span class="line">    initialData: &#123; items: [] &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> onSearch = useCallback(</span><br><span class="line">  (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target.value) &#123;</span><br><span class="line">      run(e.target.value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  [run]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>这个时候再次进行请求之后发现，完全符合我们的预期。</p>
+<p>那么我们如果也期望自己去实现该效果的话，则可以借助React的useEffect来实现。</p>
+<p>首先我们看一下React Hooks的执行流程。</p>
+<p><img src="https://cdn.thisjs.com/blog_images/20211103163446.png" alt="react hooks flow"></p>
+<p>可以发现，在每次Update阶段，都会先执行一次cleanUp Effects，然后再执行Effects函数。借助此效果，我们可以定义一个Ref外部变量，每次Effect clean阶段自增该值。在effect阶段，将该值赋给局部变量。在请求结束之后，比对局部变量与自增的Ref值是否相等，然后即可对数据做取舍。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [name, setName] = useState&lt;<span class="built_in">string</span>&gt;(<span class="string">""</span>);</span><br><span class="line"><span class="keyword">const</span> counter = useRef&lt;<span class="built_in">number</span>&gt;(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (name) &#123;</span><br><span class="line">    <span class="keyword">const</span> reqId = counter.current;</span><br><span class="line">    <span class="keyword">const</span> run = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      setLoading(<span class="literal">true</span>);</span><br><span class="line">      <span class="keyword">const</span> data = <span class="keyword">await</span> Axios.get(<span class="string">"/thirdparty/users"</span>, &#123; params: &#123; name &#125; &#125;);</span><br><span class="line">      <span class="keyword">if</span> (reqId === counter.current) &#123;</span><br><span class="line">        setData(data.data);</span><br><span class="line">      &#125;</span><br><span class="line">      setLoading(<span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    run();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    counter.current++;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, [name]);</span><br></pre></td></tr></table></figure>
+<figure class="wp-block-video"><video controls src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110410582661.mov"></video><figcaption>使用useEffect来处理返回数据</figcaption></figure>
+
+
+<p>同时，Dan Abramov 在<a href="https://overreacted.io/a-complete-guide-to-useeffect/#speaking-of-race-conditions" target="_blank" rel="noopener">A Complete Guide to useEffect</a> 也提到了该问题的解决方案，基于此，我们可以取消掉Ref这个外部变量来实现。这个可以实现的原因和该情况类似。</p>
+<p>因为useEffect的cleanup函数不是和effects一一对应执行的，<strong>并不是</strong>Mount阶段执行的Effect，一定在UnMount阶段执行对应的cleanup。<strong>而是在下一次effect执行之前，执行上一个effect的cleanup函数。</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> didCancel = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> (name) &#123;</span><br><span class="line">    <span class="keyword">const</span> run = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">      setLoading(<span class="literal">true</span>);</span><br><span class="line">      <span class="keyword">const</span> data = <span class="keyword">await</span> Axios.get(<span class="string">"/thirdparty/users"</span>, &#123; params: &#123; name &#125; &#125;);</span><br><span class="line">      <span class="keyword">if</span> (!didCancel) &#123;</span><br><span class="line">        setData(data.data);</span><br><span class="line">      &#125;</span><br><span class="line">      setLoading(<span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    run();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 用于下一次effect clean的时候更新该值</span></span><br><span class="line">    didCancel = <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, [name]);</span><br></pre></td></tr></table></figure>
+<h2 id="提取为单独的Hooks"><a href="#提取为单独的Hooks" class="headerlink" title="提取为单独的Hooks"></a>提取为单独的Hooks</h2><p>可以看到，使用react useEffect是可以满足我们的需求的。但是，针对每一个请求都要写一次这样的代码，会做很多重复性的操作，因此我们可以将该功能提取为一个单独的hooks使用。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useEffect &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用函数返回值的方式保证原来的数据</span></span><br><span class="line"><span class="keyword">type</span> ICurrentCallback = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">boolean</span>;</span><br><span class="line"><span class="keyword">type</span> IEffectCallback = <span class="function">(<span class="params">getCurrent: ICurrentCallback</span>) =&gt;</span> <span class="built_in">void</span> | <span class="function">(<span class="params">(<span class="params"></span>) =&gt; <span class="built_in">void</span> | <span class="literal">undefined</span></span>);</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="params">export</span> <span class="params">const</span> <span class="params">useCurrentEffect</span> = (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  effect: IEffectCallback,</span></span></span><br><span class="line"><span class="function"><span class="params">  deps: React.DependencyList | <span class="literal">undefined</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>) =&gt;</span> &#123;</span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> isCurrent = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果返回了清理函数，则放在cleanup阶段执行</span></span><br><span class="line">    <span class="keyword">const</span> cleanup = effect(<span class="function"><span class="params">()</span> =&gt;</span> isCurrent);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      isCurrent = <span class="literal">false</span>;</span><br><span class="line">      cleanup &amp;&amp; cleanup();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, deps);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>使用时，直接获取最新的current值即可。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">useCurrentEffect(</span><br><span class="line">  (getCurrent) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (name) &#123;</span><br><span class="line">      <span class="keyword">const</span> run = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        setLoading(<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">const</span> data = <span class="keyword">await</span> Axios.get(<span class="string">"/thirdparty/users"</span>, &#123; params: &#123; name &#125; &#125;);</span><br><span class="line">        <span class="keyword">if</span> (getCurrent()) &#123;</span><br><span class="line">          setData(data.data);</span><br><span class="line">        &#125;</span><br><span class="line">        setLoading(<span class="literal">false</span>);</span><br><span class="line">      &#125;;</span><br><span class="line">      run();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  [name]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="abort上一次网络请求"><a href="#abort上一次网络请求" class="headerlink" title="abort上一次网络请求"></a>abort上一次网络请求</h2><p>还有一种实现思路，我们可以在下一次请求的时候，直接将上一次未结束的网络请求取消掉。取消网络请求，针对不同的协议对应的api是</p>
+<ul>
+<li>XMLHttpRequest.abort()</li>
+<li>fetch 的 AbortController</li>
+</ul>
+<p>Axios中的具体实现，对应的为 CancelToken。使用CancelToken的方式官方介绍地址 <a href="https://github.com/axios/axios#cancellation" target="_blank" rel="noopener">https://github.com/axios/axios#cancellation</a> ，被取消的请求会执行Promise的reject，错误内容为cancel的内容。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cancelSource = useRef&lt;CancelTokenSource | <span class="literal">null</span>&gt;(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> run = useCallback(<span class="keyword">async</span> (name: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (cancelSource.current) &#123;</span><br><span class="line">    <span class="comment">// 如果之前存在请求，则取消掉</span></span><br><span class="line">    cancelSource.current.cancel();</span><br><span class="line">    cancelSource.current = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> CancelToken = Axios.CancelToken;</span><br><span class="line">  cancelSource.current = CancelToken.source();</span><br><span class="line"></span><br><span class="line">  setLoading(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> Axios.get(<span class="string">"/thirdparty/users"</span>, &#123;</span><br><span class="line">    params: &#123; name &#125;,</span><br><span class="line">    cancelToken: cancelSource.current.token,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 清空cancelSource值</span></span><br><span class="line">  cancelSource.current = <span class="literal">null</span>;</span><br><span class="line">  setData(data.data);</span><br><span class="line">  setLoading(<span class="literal">false</span>);</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110414210895.jpg" alt="canceled"></p>
+<p>看效果这样也满足了我们的需求，这样先请求的数据，如果还没有完成，就不会再回来了，也就不会出现覆盖的情况了。</p>
+<figure class="wp-block-video"><video controls src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110414223253.mov"></video><figcaption>使用cancel处理请求</figcaption></figure>
+
+<p>Axios的cancelToken的实现方式是利用了一个cancel token的Promise，如果存在该Promise，并且该promise resolve了，则执行xhr.abort()方法来取消掉请求。</p>
+<p>具体代码地址： <a href="https://github.com/axios/axios/blob/16aa2ce7fa42e7c46407b78966b7521d8e588a72/lib/adapters/http.js#L268" target="_blank" rel="noopener">https://github.com/axios/axios/blob/16aa2ce7fa42e7c46407b78966b7521d8e588a72/lib/adapters/http.js#L268</a></p>
+<h2 id="rxjs的SwitchMap"><a href="#rxjs的SwitchMap" class="headerlink" title="rxjs的SwitchMap"></a>rxjs的SwitchMap</h2><blockquote>
+<p>A reactive programming library for JavaScript</p>
+</blockquote>
+<p>使用rxjs处理异步操作，非常的轻松，因此处理该问题时，在不依赖react hooks直接使用rxjs的switchMap 操作符即可完成。</p>
+<p>switchMap特点是在每次发出时，会取消前一个内部 observable 的订阅，然后订阅一个新的 observable。这个思想和react的useEffect的clearup类似，因此也是一样的实现思路。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; map, switchMap &#125; <span class="keyword">from</span> <span class="string">"rxjs/operators"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; fromEvent, <span class="keyword">from</span> &#125; <span class="keyword">from</span> <span class="string">"rxjs"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个基于keyup事件的Observer</span></span><br><span class="line"><span class="keyword">let</span> userTypesInSearchBox = fromEvent(<span class="built_in">document</span>.getElementById(<span class="string">"#search-box"</span>), <span class="string">"keyup"</span>).pipe(</span><br><span class="line">	map(<span class="function">(<span class="params">event</span>) =&gt;</span> event.currentTarget.value),</span><br><span class="line">	switchMap(<span class="function">(<span class="params">name</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">from</span>(Axios.get(<span class="string">"/thirdparty/users"</span>, &#123; <span class="attr">params</span>: &#123; name &#125; &#125;));</span><br><span class="line">	&#125;),</span><br><span class="line">	map(<span class="function">(<span class="params">res</span>) =&gt;</span> res.data)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">userTypesInSearchBox.subscribe(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (data) &#123;</span><br><span class="line">		render(data);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 渲染数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://medium.com/hackernoon/avoiding-race-conditions-when-fetching-data-with-react-hooks-220d6fd0f663" target="_blank" rel="noopener">Avoiding Race Conditions when Fetching Data with React Hooks</a></p>
+<p><a href="https://flufd.github.io/avoiding-race-conditions-use-current-effect/" target="_blank" rel="noopener">Avoiding useEffect race conditions with a custom hook</a></p>
+<p><a href="https://overreacted.io/a-complete-guide-to-useeffect/#speaking-of-race-conditions" target="_blank" rel="noopener">A Complete Guide to useEffect</a></p>
+<p><a href="https://github.com/axios/axios#cancellation" target="_blank" rel="noopener">Axios - GitHub</a></p>
+<p><a href="https://juejin.im/post/6844903933735878663" target="_blank" rel="noopener">Axios取消请求CancelToken</a></p>
+<p><a href="https://stackoverflow.com/questions/54666401/how-to-use-throttle-or-debounce-with-react-hook" target="_blank" rel="noopener">How to use throttle or debounce with React Hook?</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/09/javascript-web-request-2-the-front-end-download/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JavaScript网络请求(二)：前端下载方案
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/08/explore-the-application-scenario-of-docker-in-fe-development/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">探索Docker在前端开发中的应用一：背景</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'thisjs'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2021 张树源
+    	</div>
+      	<div class="footer-right">
+      		<a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17023228号-3</a>
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdn.bootcdn.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

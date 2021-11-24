@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                JavaScript网络请求(二)：前端下载方案 |
+                    
+                        This Js
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="浏览器端的下载，广泛应用于文件下载、导出等操作，前端发起下载的方案有各种的方案，但是都与后端的协议息息相关，比如最简单的甚至可以直接使用链接即可发起下载。">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript网络请求(二)：前端下载方案">
+<meta property="og:url" content="http://www.thisjs.com/2020/11/09/javascript-web-request-2-the-front-end-download/index.html">
+<meta property="og:site_name" content="This Js">
+<meta property="og:description" content="浏览器端的下载，广泛应用于文件下载、导出等操作，前端发起下载的方案有各种的方案，但是都与后端的协议息息相关，比如最简单的甚至可以直接使用链接即可发起下载。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://cdn.thisjs.com/blog_images/fe-download.png">
+<meta property="og:image" content="https://cdn.thisjs.com/blog_images/20210604110942.png">
+<meta property="og:image" content="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110915453868.png">
+<meta property="og:updated_time" content="2021-06-04T03:13:01.738Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript网络请求(二)：前端下载方案">
+<meta name="twitter:description" content="浏览器端的下载，广泛应用于文件下载、导出等操作，前端发起下载的方案有各种的方案，但是都与后端的协议息息相关，比如最简单的甚至可以直接使用链接即可发起下载。">
+<meta name="twitter:image" content="https://cdn.thisjs.com/blog_images/fe-download.png">
+            
+                <link rel="alternative" href="/atom.xml" title="This Js" type="application/atom+xml">
+                
+                    
+                        <link rel="icon" href="/favicon.png">
+                        
+                            <link rel="stylesheet" href="/css/style.css">
+                                
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0056486684ce6d758dfb1dc18c601291";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">张树源</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">小凡的秘密花园</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/中间人/" style="font-size: 10px;">中间人</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/无头浏览器/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.thisjs.com/">書逺的旅行日志</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.zhangyanlu.com/">璐水珠</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://muyunyun.cn/">牧云云</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/coco1s">ChokCoco</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.h5jun.com/">十年踪迹的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">张树源</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">张树源</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">小凡的秘密花园</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-javascript-web-request-2-the-front-end-download" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/11/09/javascript-web-request-2-the-front-end-download/" class="article-date">
+  	<time datetime="2020-11-09T14:33:11.000Z" itemprop="datePublished">2020-11-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript网络请求(二)：前端下载方案
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.2.1/css/hint.min.css"><p><img src="https://cdn.thisjs.com/blog_images/fe-download.png" alt="前端下载方案"></p>
+<p>浏览器端的下载，广泛应用于文件下载、导出等操作，前端发起下载的方案有各种的方案，但是都与后端的协议息息相关，比如最简单的甚至可以直接使用链接即可发起下载。</p>
+<a id="more"></a>
+<h2 id="a-标签下载"><a href="#a-标签下载" class="headerlink" title="a 标签下载"></a>a 标签下载</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://url.com/file"</span> <span class="attr">download</span>=<span class="string">"logo-image"</span>&gt;</span>下载<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样既可在高版本浏览器中，指定一次下载，download属性便是指定该链接为下载的属性，属性值有三种形式：</p>
+<ul>
+<li>省缺：不填写的情况下会根据返回头中的 “Content-Disposition” 来生成名称。</li>
+<li>文件名：优先使用该值作为文件名，后缀名根据Content-Disposition来生成。</li>
+<li>文件名.后缀: 使用该文件名与后缀来下载文件。</li>
+</ul>
+<p>以下为浏览器的支持情况：</p>
+<p><img src="https://cdn.thisjs.com/blog_images/20210604110942.png" alt="浏览器支持情况"></p>
+<p>在实际开发中，更多的情况可能会是使用JavaScript来发起下载，而不是直接写好一个连接。因此我们可以通过动态的创建a标签，并触发点击事件，来完成下载。一个标准的下载工具函数如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> download = <span class="function">(<span class="params">url: string, fileName: string</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> elementLink = <span class="built_in">document</span>.createElement(<span class="string">"a"</span>);</span><br><span class="line">    elementLink.style.display = <span class="string">"none"</span>;</span><br><span class="line">    elementLink.download = fileName;</span><br><span class="line">    elementLink.href = url;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(elementLink);</span><br><span class="line">    elementLink.click();</span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(elementLink);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>直接使用a标签来发起下载，在不同的浏览器端，会有一些不符合预期的表现形式，比如在测试中遇到的情况就是如果返回的文件是PDF格式，并且指定了’Content-Type’ Header为 ‘application/pdf’，则在不同的浏览器上有不同的表现。</p>
+<ul>
+<li>FireFox download指定的文件名失效</li>
+<li>Chrome 会直接跳转到PDF阅读页面，而不是发起下载</li>
+</ul>
+<p>以下为不同浏览器表现的视频效果：</p>
+<figure class="wp-block-video"><video controls src="https://cdn.thisjs.com/video/%E5%B1%8F%E5%B9%95%E5%BD%95%E5%88%B62020-11-06%20%E4%B8%8B%E5%8D%885.05.53.mov"></video><figcaption>Chrome 中点击下载，则会跳转到阅读页面</figcaption></figure>
+
+<figure class="wp-block-video"><video controls src="https://cdn.thisjs.com/video/%E5%B1%8F%E5%B9%95%E5%BD%95%E5%88%B62020-11-06%20%E4%B8%8B%E5%8D%885.09.01.mov"></video><figcaption>firefox中则是指定的文件名失效</figcaption></figure>
+
+<p>经测试，在使用JavaScript动态创建的标签下载时，不会出现该问题。和使用a标签链接对应的文件类似，我们同样可以使用其他的方式打开链接，让浏览器决定下载内容。</p>
+<h2 id="location-href-window-open"><a href="#location-href-window-open" class="headerlink" title="location.href / window.open"></a>location.href / window.open</h2><p>两种实现方法比较类似，都是使用浏览器直接打开对应的链接，然后浏览器根据Header中的content-disposition 的信息来决定是展示还是下载。</p>
+<p>对于普通的二进制文件正常都是直接触发下载，但是对于图片、video等浏览器可以直接解析的内容，就可能会出现直接在浏览器展示，而不是下载。这其中的主要原因依旧是content-disposition Header的缘故。</p>
+<p><strong>content-disposition</strong>在作为response header时候，可以有两种类型，分别是：</p>
+<ul>
+<li>inline （默认值）—— 如果浏览器可以解析，则使用浏览器展示内容</li>
+<li>attachment —— 作为附件下载，可以指定文件名</li>
+</ul>
+<p>对于这两种文件类型的效果区别，可以分别点击以下链接查看Header信息里的区别：</p>
+<p>inline <a href="https://blog-demos.vercel.app/api/download/inline-image" target="_blank" rel="noopener">https://blog-demos.vercel.app/api/download/inline-image</a><br>attachement <a href="https://blog-demos.vercel.app/api/download/attachment-image" target="_blank" rel="noopener">https://blog-demos.vercel.app/api/download/attachment-image</a></p>
+<p>因此，如果希望浏览器直接打开的方式下载文件，需要服务端配置好对应的content-disposition为attachment值。</p>
+<h2 id="XMLHttpRequest-a标签下载"><a href="#XMLHttpRequest-a标签下载" class="headerlink" title="XMLHttpRequest + a标签下载"></a>XMLHttpRequest + a标签下载</h2><p>使用XHR下载主要可以处理以下几种情况，其中前两项为比较常见的场景：</p>
+<ul>
+<li><strong>认证信息存在于Header中，而不是cookie中</strong></li>
+<li><strong>错误信息回调</strong></li>
+<li>JS端获取最新的下载进度，展示下载效果</li>
+<li>控制下载取消</li>
+</ul>
+<p>使用XHR下载的思路是，请求的responseType为blob格式，在获取到文件之后，使用createObjectURL转换为对象地址，赋值给a标签的href属性，完成下载。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 触发下载blob文件</span></span><br><span class="line"><span class="keyword">const</span> triggerDownload = useCallback(<span class="function">(<span class="params">data: <span class="built_in">any</span>, fileName: <span class="built_in">string</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> url = <span class="built_in">window</span>.URL.createObjectURL(<span class="keyword">new</span> Blob([data]));</span><br><span class="line">  <span class="keyword">let</span> link = <span class="built_in">document</span>.createElement(<span class="string">"a"</span>);</span><br><span class="line">  link.style.display = <span class="string">"none"</span>;</span><br><span class="line">  link.href = url;</span><br><span class="line">  link.setAttribute(<span class="string">"download"</span>, fileName);</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(link);</span><br><span class="line">  link.click();</span><br><span class="line">&#125;, []);</span><br><span class="line"></span><br><span class="line"><span class="comment">// XHR请求文件内容</span></span><br><span class="line"><span class="keyword">const</span> onDownload = useCallback(</span><br><span class="line">  <span class="keyword">async</span> (url: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> Axios.get(url, &#123;</span><br><span class="line">        <span class="comment">// 文件类型设置</span></span><br><span class="line">        responseType: <span class="string">"blob"</span>,</span><br><span class="line">        headers: &#123;</span><br><span class="line">          Authorization: <span class="string">`Bearer Token`</span>, <span class="comment">// 授权信息</span></span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">if</span> (response.status === <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> fileName = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"content-disposition"</span> <span class="keyword">in</span> response.headers) &#123;</span><br><span class="line">          <span class="comment">// 从Header中获取文件名</span></span><br><span class="line">          <span class="keyword">const</span> dispositionParams = contentDisposition.parse(</span><br><span class="line">            response.headers[<span class="string">"content-disposition"</span>]</span><br><span class="line">          ).parameters;</span><br><span class="line">          fileName = dispositionParams[<span class="string">"filename"</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        triggerDownload(response.data, fileName);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      message.error(error.message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  [triggerDownload]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="错误信息回调"><a href="#错误信息回调" class="headerlink" title="错误信息回调"></a>错误信息回调</h3><p>以上便是一个较为完整的使用XHR下载的方法，基于此，我们为其增加错误信息回调。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> onDownload = useCallback(</span><br><span class="line">  (url: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> (resolve, reject) =&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//...code...</span></span><br><span class="line">        <span class="keyword">if</span> (response.status === <span class="number">200</span>) &#123;</span><br><span class="line">          <span class="comment">//...code...</span></span><br><span class="line">          triggerDownload(response.data, fileName);</span><br><span class="line">          resolve(<span class="string">"success"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          reject(<span class="string">"response status"</span> + response.status);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="comment">// Axios的错误类型，读取返回数据中的JSON内容</span></span><br><span class="line">        <span class="keyword">if</span> (error.isAxiosError) &#123;</span><br><span class="line">          <span class="comment">// 因为数据默认设置为Blob文件类型，因此需要使用fileReader将数据从Blob中读取出来</span></span><br><span class="line">          <span class="keyword">const</span> fr = <span class="keyword">new</span> FileReader();</span><br><span class="line">          fr.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">const</span> result = <span class="built_in">JSON</span>.parse((<span class="keyword">this</span>.result <span class="keyword">as</span> <span class="built_in">string</span>) ?? <span class="string">"&#123;&#125;"</span>);</span><br><span class="line">            reject(result.message);</span><br><span class="line">          &#125;;</span><br><span class="line">          fr.readAsText(error.response.data);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// 其他错误类型，直接返回消息体</span></span><br><span class="line">          reject(error.message);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  [triggerDownload]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>使用fileReader将后端返回的错误JSON解析出来，这样在使用该函数的过程中，就可以获取到成功或者错误的回调信息了。</p>
+<h3 id="进度和取消"><a href="#进度和取消" class="headerlink" title="进度和取消"></a>进度和取消</h3><p>取消网络请求可以使用xhr.abort，对应Axios的实现为cancelToken，取消网络请求相关的介绍内容可以参照之前内容：<a href="https://www.thisjs.com/2020/11/04/javascript-web-request-a-race-condition-problem/">「JavaScript网络请求(一)：处理race condition竞态问题#abort上一次网络请求」</a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> onDownload = useCallback(</span><br><span class="line">  (url: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> (resolve, reject) =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> CancelToken = Axios.CancelToken;</span><br><span class="line">      cancelSource.current = CancelToken.source();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> response = <span class="keyword">await</span> Axios.get(url, &#123;</span><br><span class="line">          <span class="comment">// 文件类型设置</span></span><br><span class="line">          responseType: <span class="string">"blob"</span>,</span><br><span class="line">          headers: &#123;</span><br><span class="line">            Authorization: <span class="string">`Bearer Token`</span>, <span class="comment">// 授权信息</span></span><br><span class="line">          &#125;,</span><br><span class="line">          cancelToken: cancelSource.current.token,</span><br><span class="line">          onDownloadProgress(evt) &#123;</span><br><span class="line">            setPercentage(<span class="built_in">Math</span>.ceil((evt.loaded / evt.total) * <span class="number">100</span>));</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">if</span> (response.status === <span class="number">200</span>) &#123;</span><br><span class="line">          <span class="comment">// ...code...</span></span><br><span class="line">          resolve(<span class="string">"success"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          reject(<span class="string">"response status"</span> + response.status);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="comment">// ...code...</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  [triggerDownload]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>在线测试效果地址：<a href="https://blog-demos.vercel.app/admin/blog-demos/user-download" target="_blank" rel="noopener">https://blog-demos.vercel.app/admin/blog-demos/user-download</a></p>
+<p><img src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020110915453868.png" alt></p>
+<p>完整代码地址：<a href="https://gist.github.com/mrxf/14091139d710a7e4d9d79b71e1472243" target="_blank" rel="noopener">https://gist.github.com/mrxf/14091139d710a7e4d9d79b71e1472243</a></p>
+<h2 id="FileSaver-js"><a href="#FileSaver-js" class="headerlink" title="FileSaver.js"></a>FileSaver.js</h2><p>filesaver.js是非常强大的前端文件保存方案，不仅限于下载文件，包括canvas等内容都可以直接保存，是非常成熟的方案。</p>
+<p>下载文件也非常的方便，如果有其他的保存需求，可以使用该库。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FileSaver.saveAs(<span class="string">"https://httpbin.org/image"</span>, <span class="string">"image.jpg"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="附录："><a href="#附录：" class="headerlink" title="附录："></a>附录：</h2><p>🤔 Q: <strong>在一些返回中，并不能看到content-disposition Header信息，导致无法获取文件名，应该怎么办呢？</strong></p>
+<p>✅ 解决思路：检查Access-Control-Expose-Headers 的配置信息，该Header控制响应Header暴露那些Header到外部，默认不展示content-disposition。</p>
+<p>🤔 Q: <strong>XHR的responseType还有哪些格式？</strong></p>
+<p>🙋‍♂️ Answer：text(省缺值)、json、document、arraybuffer、blob、ms-stream(IE支持的下载类型)</p>
+<p>🤓 Q：<strong>content-disposition的attachment类型的规范是怎么样的呢？</strong></p>
+<p>🙋‍♂️ Answer：除了可以直接设置attachment值之外，还可以指明文件名，格式如下：</p>
+<ul>
+<li>attachment; filename=”filename.jpg”</li>
+<li>attachment; filename=”???.png”; filename*=UTF-8’’%E4%B8%AD%E6%96%87%E5%90%8D.png</li>
+<li>filename<em>“采用了  RFC 5987 中规定的编码方式，和filename同时出现时，应该优先使用filename</em>，主要在非英文名时会用到</li>
+</ul>
+<p>因此在获取content-disposition的文件名的时候，直接用正则匹配可能效果并不好，尤其是在出现了 filename*的时候，处理的条件就更加复杂了。建议直接使用第三方工具包 content-disposition</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install content-disposition</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/eligrey/FileSaver.js" target="_blank" rel="noopener">https://github.com/eligrey/FileSaver.js</a></li>
+<li><a href="http://wangyn.net/2018/06/20/the-principle-of-aerolite-and-the-comparation-with-community-solution.html" target="_blank" rel="noopener">aerolite 实现原理及社区解决方案对比分析 ——有更多社区方案</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Expose-Headers" target="_blank" rel="noopener">Access-Control-Expose-Headers</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition" target="_blank" rel="noopener">Content-Disposition</a></li>
+<li><a href="https://stackoverflow.com/questions/23054475/javascript-regex-for-extracting-filename-from-content-disposition-header" target="_blank" rel="noopener">javascript-regex-for-extracting-filename-from-content-disposition-header —— 用正则匹配Header中的文件名</a></li>
+<li><a href="https://www.npmjs.com/package/content-disposition" target="_blank" rel="noopener">content-disposition - npm包</a></li>
+<li><a href="https://juejin.im/post/6844903763359039501" target="_blank" rel="noopener">这应该是你见过的最全前端下载总结</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/11/react-controlled-and-uncontrolled-components/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          React受控组件与非受控组件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/04/javascript-web-request-a-race-condition-problem/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript网络请求(一)：处理race condition竞态问题</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'thisjs'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2021 张树源
+    	</div>
+      	<div class="footer-right">
+      		<a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17023228号-3</a>
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdn.bootcdn.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

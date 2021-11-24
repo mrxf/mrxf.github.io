@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                React函数式组件使用同时转发子组件的ref |
+                    
+                        This Js
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="React 中常常会用到 Ref 对组件进行命令式的调用，官方对不同 ref 值的介绍如下： ref 的值根据节点的类型而有所不同：  当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性。 当 ref 属性用于自定义 class 组件时，ref 对象接收组件的挂载实例作为其 current">
+<meta name="keywords" content="javascript,react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React函数式组件使用同时转发子组件的ref">
+<meta property="og:url" content="http://www.thisjs.com/2020/11/12/use-forward-ref/index.html">
+<meta property="og:site_name" content="This Js">
+<meta property="og:description" content="React 中常常会用到 Ref 对组件进行命令式的调用，官方对不同 ref 值的介绍如下： ref 的值根据节点的类型而有所不同：  当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性。 当 ref 属性用于自定义 class 组件时，ref 对象接收组件的挂载实例作为其 current">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://blog.thisjs.com/wp-content/uploads/2020/11/2020111223142282.png">
+<meta property="og:updated_time" content="2020-11-13T02:59:07.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React函数式组件使用同时转发子组件的ref">
+<meta name="twitter:description" content="React 中常常会用到 Ref 对组件进行命令式的调用，官方对不同 ref 值的介绍如下： ref 的值根据节点的类型而有所不同：  当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性。 当 ref 属性用于自定义 class 组件时，ref 对象接收组件的挂载实例作为其 current">
+<meta name="twitter:image" content="https://blog.thisjs.com/wp-content/uploads/2020/11/2020111223142282.png">
+            
+                <link rel="alternative" href="/atom.xml" title="This Js" type="application/atom+xml">
+                
+                    
+                        <link rel="icon" href="/favicon.png">
+                        
+                            <link rel="stylesheet" href="/css/style.css">
+                                
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0056486684ce6d758dfb1dc18c601291";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">张树源</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">小凡的秘密花园</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/中间人/" style="font-size: 10px;">中间人</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/无头浏览器/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.thisjs.com/">書逺的旅行日志</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.zhangyanlu.com/">璐水珠</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://muyunyun.cn/">牧云云</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/coco1s">ChokCoco</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.h5jun.com/">十年踪迹的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">张树源</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">张树源</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">小凡的秘密花园</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-use-forward-ref" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/11/12/use-forward-ref/" class="article-date">
+  	<time datetime="2020-11-12T15:15:54.000Z" itemprop="datePublished">2020-11-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React函数式组件使用同时转发子组件的ref
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.2.1/css/hint.min.css"><p><img src="https://blog.thisjs.com/wp-content/uploads/2020/11/2020111223142282.png" alt="use forward ref"></p>
+<p>React 中常常会用到 Ref 对组件进行命令式的调用，官方对不同 ref 值的介绍如下：</p>
+<p>ref 的值根据节点的类型而有所不同：</p>
+<ul>
+<li>当 ref 属性用于 HTML 元素时，构造函数中使用 React.createRef() 创建的 ref 接收底层 DOM 元素作为其 current 属性。</li>
+<li>当 ref 属性用于自定义 class 组件时，ref 对象接收组件的挂载实例作为其 current 属性。</li>
+<li><strong>你不能在函数组件上使用 ref 属性</strong>，因为他们没有实例。</li>
+</ul>
+<a id="more"></a>
+<p>但是函数式组件，可以使用 forwardRef 与 useImperativeHandle 组合使用，来实现对外暴露组件调用命令的效果。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cool-input.tsx</span></span><br><span class="line"><span class="keyword">const</span> CoolInput = forwardRef&lt;CoolInputForward, CoolInputProps&gt;<span class="function">(<span class="params">(<span class="params">props, forwardedRef</span>) =&gt; &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">const</span> [value, setValue] = useState&lt;<span class="built_in">string</span>&gt;(<span class="params">""</span>);</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">const</span> inputRef = useRef&lt;HTMLInputElement&gt;(<span class="params"><span class="literal">null</span></span>);</span></span></span><br><span class="line"><span class="function"><span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="comment">// 对外暴露命令式方法</span></span></span></span><br><span class="line"><span class="function"><span class="params">  useImperativeHandle(<span class="params">forwardedRef, (<span class="params"></span>) =&gt; (<span class="params">&#123;</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">    getValue(<span class="params"></span>) &#123;</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">      <span class="keyword">return</span> value;</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">    &#125;,</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">    <span class="comment">// 聚焦Input框</span></span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">    focusInput(<span class="params"></span>) &#123;</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">      inputRef.current?.focus(<span class="params"></span>);</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">    &#125;,</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params"><span class="params">  &#125;</span>)</span>);</span></span></span><br><span class="line"><span class="function"><span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">return</span> (<span class="params"></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">    &lt;input ref=&#123;inputRef&#125; value=&#123;value&#125; onChange=&#123;(<span class="params">&#123; target: &#123; value &#125; &#125;</span>) =&gt; setValue(<span class="params">value</span>)&#125; /&gt;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  </span>);</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>);</span></span><br></pre></td></tr></table></figure>
+<p>同时，使用 forwardRef，可以实现将函数式组件中的子组件转发给父组件使用，让父组件直接调用对应的命令。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cool-input.tsx</span></span><br><span class="line"><span class="keyword">const</span> CoolInput = forwardRef&lt;HTMLInputElement, CoolInputProps&gt;<span class="function">(<span class="params">(<span class="params">props, forwardedRef</span>) =&gt; &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">const</span> [value, setValue] = useState&lt;<span class="built_in">string</span>&gt;(<span class="params">""</span>);</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">return</span> (<span class="params"></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">    &lt;input ref=&#123;forwardedRef&#125; value=&#123;value&#125; onChange=&#123;(<span class="params">&#123; target: &#123; value &#125; &#125;</span>) =&gt; setValue(<span class="params">value</span>)&#125; /&gt;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  </span>);</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>);</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.tsx</span></span><br><span class="line"><span class="keyword">const</span> Index: React.FC&lt;IndexProps&gt; = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> coolInputRef = useRef&lt;HTMLInputElement&gt;(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> onFocusCool = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    coolInputRef.current?.focus();</span><br><span class="line">  &#125;, []);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;CoolInput ref=&#123;coolInputRef&#125; /&gt;</span><br><span class="line">      &lt;button onClick=&#123;onFocusCool&#125;&gt;聚焦输入框&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这样就可以在父组件中，直接调用函数组件中的子组件的事件了。但是有一种特殊的情况：<strong>函数组件中在转发子组件的同时，也需要使用该组件的 Ref</strong>。我们期望实现的效果是，父组件(index.tsx)点击「聚焦输入框」可以正确的使 input 触发 focus 事件，同时，函数组件也可以监听 input 的 focus 事件，打印输入框的值。</p>
+<p>这个时候，我们便需要将 input 元素同时赋给多个 Ref，因此需要根据 ref 的类型来进行批量赋值。ref 赋值有三种方式：</p>
+<h2 id="1-字符串定义"><a href="#1-字符串定义" class="headerlink" title="1. 字符串定义"></a>1. 字符串定义</h2><blockquote>
+<p>不建议使用它，因为 string 类型的 refs 存在 一些问题。它已过时并可能会在未来的版本被移除</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">'text'</span> ref=<span class="string">'textInput'</span> /&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用ref</span></span><br><span class="line"><span class="keyword">this</span>.refs.textInput;</span><br></pre></td></tr></table></figure>
+<h2 id="2-使用回调函数"><a href="#2-使用回调函数" class="headerlink" title="2. 使用回调函数"></a>2. 使用回调函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setTextInputRef = <span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">this</span>.textInput = element;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;input type=<span class="string">'text'</span> ref=&#123;<span class="keyword">this</span>.setTextInputRef&#125; /&gt;;</span><br></pre></td></tr></table></figure>
+<h2 id="3-使用-Ref-对象"><a href="#3-使用-Ref-对象" class="headerlink" title="3. 使用 Ref 对象"></a>3. 使用 Ref 对象</h2><p>在 React 16.3 版本之后，使用 createRef 使得对象引用变得更加方便。因此正常情况下，推荐使用该方式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="keyword">this</span>.textInput = React.createRef();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 赋值</span></span><br><span class="line">&lt;input type=<span class="string">'text'</span> ref=&#123;<span class="keyword">this</span>.textInput&#125; /&gt;;</span><br></pre></td></tr></table></figure>
+<p>在函数组件中，一样可以<strong>在函数组件内部使用 ref 属性</strong>，使用方法便是 useRef，创建一个 Ref 对象。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> inputRef = useRef&lt;HTMLInputElement&gt;(<span class="literal">null</span>);</span><br><span class="line">&lt;input ref=&#123;inputRef&#125; <span class="keyword">type</span>=<span class="string">'text'</span> /&gt;;</span><br></pre></td></tr></table></figure>
+<p>回归问题，我们只需要判断 ref 的类型，然后根据当前类型，依次赋值即可。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CoolInput = forwardRef&lt;HTMLInputElement, CoolInputProps&gt;<span class="function">(<span class="params">(<span class="params">props, forwardedRef</span>) =&gt; &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">const</span> inputRef = useRef&lt;HTMLInputElement&gt;(<span class="params"><span class="literal">null</span></span>); <span class="comment">// Object类型的Ref</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="comment">/** 根据ref类型设置ref的值 */</span></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">function</span> setRef(<span class="params">ref: React.Ref&lt;HTMLInputElement&gt;, value: HTMLInputElement | <span class="literal">null</span></span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">if</span> (<span class="params"><span class="keyword">typeof</span> ref === "<span class="keyword">function</span>"</span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">      ref(<span class="params">value</span>);</span></span></span><br><span class="line"><span class="function"><span class="params">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="params">ref !== <span class="literal">null</span></span>) &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">      (<span class="params">ref <span class="keyword">as</span> MutableRefObject&lt;HTMLInputElement | <span class="literal">null</span>&gt;</span>).current = value;</span></span></span><br><span class="line"><span class="function"><span class="params">    &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">  &#125;</span></span></span><br><span class="line"><span class="function"><span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">return</span> (<span class="params"></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">    &lt;input</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">      ref=&#123;(<span class="params">instance</span>) =&gt; &#123;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">        <span class="comment">// 依次设置ref的值</span></span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">        setRef(<span class="params">forwardedRef, instance</span>);</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">        setRef(<span class="params">inputRef, instance</span>);</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">      &#125;&#125;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">      onFocus=&#123;(<span class="params"></span>) =&gt; <span class="built_in">console</span>.log(<span class="params">inputRef.current?.value</span>)&#125;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">    /&gt;</span></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">  </span>);</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>);</span></span><br></pre></td></tr></table></figure>
+<p>思路便是以上的内容，即将示例依次赋值给对应的 ref 即可，但是这样编写起来比较麻烦，我可以将该功能提取为一个 hooks 使用，这样就不需要单独去赋值了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; MutableRefObject, Ref, useCallback &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 合并多个ref为一个</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCombinedRefs = &lt;T <span class="keyword">extends</span> <span class="built_in">any</span>&gt;(...refs: <span class="built_in">Array</span>&lt;Ref&lt;T&gt;&gt;): Ref&lt;T&gt; =&gt;</span><br><span class="line">  useCallback(</span><br><span class="line">    (element: T) =&gt;</span><br><span class="line">      refs.forEach(<span class="function">(<span class="params">ref</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!ref) &#123;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> ref === <span class="string">"function"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> ref(element);</span><br><span class="line">        &#125;</span><br><span class="line">        (ref <span class="keyword">as</span> MutableRefObject&lt;T&gt;).current = element;</span><br><span class="line">      &#125;),</span><br><span class="line">    refs</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+<p>这样我们即可在页面中直接使用即可合并所有相同的 Ref 为一个，直接赋值到元素上即可。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CoolInput = forwardRef&lt;HTMLInputElement, CoolInputProps&gt;<span class="function">(<span class="params">(<span class="params">props, forwardedRef</span>) =&gt; &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">const</span> inputRef = useRef&lt;HTMLInputElement&gt;(<span class="params"><span class="literal">null</span></span>); <span class="comment">// Object类型的Ref</span></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">const</span> combineRef = useCombinedRefs(<span class="params">forwardedRef, inputRef</span>);</span></span></span><br><span class="line"><span class="function"><span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  <span class="keyword">return</span> &lt;input ref=&#123;combineRef&#125; onFocus=&#123;(<span class="params"></span>) =&gt; <span class="built_in">console</span>.log(<span class="params">inputRef.current?.value</span>)&#125; /&gt;;</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>);</span></span><br></pre></td></tr></table></figure>
+<p>这时，父组件也可以直接对 input 元素使用.focus()方法，函数组件中也可以随时在 onFocus 中使用 ref 打印当前输入框的值了。</p>
+<iframe src="https://codesandbox.io/embed/hebingzhuanfazujianderef-vekvj?fontsize=14&hidenavigation=1&theme=dark" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="合并转发组件的ref" allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/facebook/react/issues/13029" target="_blank" rel="noopener">Share ref with multiple ref handlers</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/refs-and-the-dom.html" target="_blank" rel="noopener">Refs and the DOM —— React官方文档</a></li>
+<li><a href="https://juejin.im/post/6844903581435297806" target="_blank" rel="noopener">React ref 指北教程</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/06/04/with-the-help-of-front-page-pv-nginx-statistics-information/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          借助nginx统计前端页面PV信息
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/11/11/react-controlled-and-uncontrolled-components/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React受控组件与非受控组件</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'thisjs'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2021 张树源
+    	</div>
+      	<div class="footer-right">
+      		<a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17023228号-3</a>
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdn.bootcdn.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

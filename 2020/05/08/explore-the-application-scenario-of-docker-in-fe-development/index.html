@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                探索Docker在前端开发中的应用一：背景 |
+                    
+                        This Js
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="Docker是一项具有划时代意义的开源项目，它在服务端开发以及部署中大放异彩，本着对优秀技术的不断学习态度，非常建议将Docker作为你下一项学习的技术。本文作为Docker在前端中应用的背景篇章，会对Docker及其优势做精简的介绍，然后列举一些前端开发、测试、部署过程中遇到的问题，希望可以借助Docker优雅地解决。">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="探索Docker在前端开发中的应用一：背景">
+<meta property="og:url" content="http://www.thisjs.com/2020/05/08/explore-the-application-scenario-of-docker-in-fe-development/index.html">
+<meta property="og:site_name" content="This Js">
+<meta property="og:description" content="Docker是一项具有划时代意义的开源项目，它在服务端开发以及部署中大放异彩，本着对优秀技术的不断学习态度，非常建议将Docker作为你下一项学习的技术。本文作为Docker在前端中应用的背景篇章，会对Docker及其优势做精简的介绍，然后列举一些前端开发、测试、部署过程中遇到的问题，希望可以借助Docker优雅地解决。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://www.thisjs.com/images/docker-nodejs-cover.png">
+<meta property="og:image" content="http://www.thisjs.com/images/navicat-mysql-01.jpg">
+<meta property="og:image" content="http://www.thisjs.com/images/install-mac-dmg.png">
+<meta property="og:updated_time" content="2020-05-09T09:53:31.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="探索Docker在前端开发中的应用一：背景">
+<meta name="twitter:description" content="Docker是一项具有划时代意义的开源项目，它在服务端开发以及部署中大放异彩，本着对优秀技术的不断学习态度，非常建议将Docker作为你下一项学习的技术。本文作为Docker在前端中应用的背景篇章，会对Docker及其优势做精简的介绍，然后列举一些前端开发、测试、部署过程中遇到的问题，希望可以借助Docker优雅地解决。">
+<meta name="twitter:image" content="http://www.thisjs.com/images/docker-nodejs-cover.png">
+            
+                <link rel="alternative" href="/atom.xml" title="This Js" type="application/atom+xml">
+                
+                    
+                        <link rel="icon" href="/favicon.png">
+                        
+                            <link rel="stylesheet" href="/css/style.css">
+                                
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?0056486684ce6d758dfb1dc18c601291";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">张树源</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">小凡的秘密花园</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/API/" style="font-size: 10px;">API</a> <a href="/tags/C/" style="font-size: 10px;">C#</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 12px;">MySql</a> <a href="/tags/PHP/" style="font-size: 12px;">PHP</a> <a href="/tags/angular/" style="font-size: 16px;">angular</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/gojs/" style="font-size: 12px;">gojs</a> <a href="/tags/jQuery/" style="font-size: 12px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jsp/" style="font-size: 10px;">jsp</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/lazyload/" style="font-size: 10px;">lazyload</a> <a href="/tags/lodash/" style="font-size: 10px;">lodash</a> <a href="/tags/material/" style="font-size: 10px;">material</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/node/" style="font-size: 14px;">node</a> <a href="/tags/osx/" style="font-size: 10px;">osx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/rxjs/" style="font-size: 10px;">rxjs</a> <a href="/tags/vs2015/" style="font-size: 10px;">vs2015</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a> <a href="/tags/中间人/" style="font-size: 10px;">中间人</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/应用/" style="font-size: 10px;">应用</a> <a href="/tags/开发/" style="font-size: 10px;">开发</a> <a href="/tags/开发工具/" style="font-size: 10px;">开发工具</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/操作系统/" style="font-size: 18px;">操作系统</a> <a href="/tags/无头浏览器/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/爬虫/" style="font-size: 10px;">爬虫</a> <a href="/tags/跨域/" style="font-size: 10px;">跨域</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.thisjs.com/">書逺的旅行日志</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.zhangyanlu.com/">璐水珠</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://muyunyun.cn/">牧云云</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/coco1s">ChokCoco</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.h5jun.com/">十年踪迹的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">张树源</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://cdn.thisjs.com/blog_images/1637290831072.jpeg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">张树源</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">小凡的秘密花园</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/mrxf" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1622504854" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-explore-the-application-scenario-of-docker-in-fe-development" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/05/08/explore-the-application-scenario-of-docker-in-fe-development/" class="article-date">
+  	<time datetime="2020-05-08T04:45:17.000Z" itemprop="datePublished">2020-05-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      探索Docker在前端开发中的应用一：背景
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/hexo-tag-hint@0.2.1/css/hint.min.css"><p><img src="/images/docker-nodejs-cover.png" alt="Docker with node"></p>
+<span style="border-bottom: 1px dashed #389fff;"><span class="hint--top hint--rounded hint--info" aria-label="Empowering App Development for Developers" ontouchstart>Docker</span></span>是一项具有划时代意义的开源项目，它在服务端开发以及部署中大放异彩，本着对优秀技术的不断学习态度，非常建议将Docker作为你下一项学习的技术。<br><br>本文作为Docker在前端中应用的背景篇章，会对Docker及其优势做精简的介绍，然后列举一些前端开发、测试、部署过程中遇到的问题，希望可以借助Docker优雅地解决。<br><br><a id="more"></a>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><h2 id="一、在开发过程中，有没有遇到过以下场景："><a href="#一、在开发过程中，有没有遇到过以下场景：" class="headerlink" title="一、在开发过程中，有没有遇到过以下场景："></a>一、在<strong>开发</strong>过程中，有没有遇到过以下场景：</h2><ol>
+<li>需要自己配置proxy解决跨域请求问题</li>
+<li>接手一个新项目之后，想要跑起来，并没有想象中的那么流畅，除了前端依赖，还要配置若干系统内容<ul>
+<li>npm i</li>
+<li>npm start</li>
+<li>Error XXX服务未配置</li>
+</ul>
+</li>
+<li>一个Node服务(比如SSR、打印服务、普通的数据处理服务)，在部署的时候，脚本控制权并不在前端手中，容易出现一些配合问题</li>
+<li>后端项目需要在本地运行，你需要安装全部的后端环境，然后这些环境在你开发下一个项目的时候，你还在考虑如何能清理干净。<ul>
+<li>MySql</li>
+<li>MongoDb</li>
+<li>Java</li>
+<li>PHP</li>
+<li>Redis</li>
+<li>Nginx</li>
+<li>…</li>
+</ul>
+</li>
+</ol>
+<h2 id="二、在搭建团队基础服务过程中，有没有遇到过以下场景："><a href="#二、在搭建团队基础服务过程中，有没有遇到过以下场景：" class="headerlink" title="二、在搭建团队基础服务过程中，有没有遇到过以下场景："></a>二、在<strong>搭建团队基础服务</strong>过程中，有没有遇到过以下场景：</h2><ol>
+<li>需要在服务器上部署一个项目要安装若干的基础服务</li>
+<li>你发现系统上已经存在了旧版本的服务，你不确定升级该服务，会影响系统上的哪些应用，但是不升级，你的应用不支持安装</li>
+</ol>
+<h2 id="三、在学习过程中，是否有过以下场景："><a href="#三、在学习过程中，是否有过以下场景：" class="headerlink" title="三、在学习过程中，是否有过以下场景："></a>三、在<strong>学习</strong>过程中，是否有过以下场景：</h2><ol>
+<li>搭建一个普通的博客，都需要花费大量时间安装一些基础服务：<ul>
+<li>PHP环境</li>
+<li>Apache</li>
+<li>各种数据库服务</li>
+</ul>
+</li>
+<li>如果有一天你不需要了，还要花费时间去清理</li>
+<li>项目开发完之后，还要考虑服务端的环境问题</li>
+<li>你的一个Demo项目，希望在任何服务器都能快速部署</li>
+</ol>
+<h1 id="需求总结"><a href="#需求总结" class="headerlink" title="需求总结"></a>需求总结</h1><p>我们将我们的需求汇总一下，我们希望的功能有：</p>
+<ol>
+<li>开发所需的非前端环境一键配置</li>
+<li>所需的服务方便配置、简单移除</li>
+<li>项目开发配置完成后，方便部署在不同平台并且运行效果一致</li>
+<li>其他人接手项目后，能够快速搭建好环境，并且运行起项目</li>
+</ol>
+<h1 id="Docker介绍"><a href="#Docker介绍" class="headerlink" title="Docker介绍"></a>Docker介绍</h1><p>Docker的官方化介绍，可以在其官网<a href="https://create-react-app.dev/docs/proxying-api-requests-in-development/" target="_blank" rel="noopener">[1]</a>中了解到，对于我们来说Docker就是一个将项目运行所需所有环境打包到一个虚拟化容器中的工具，<br>同时，借助Docker，我们也可以非常方便的获取所需的依赖环境。</p>
+<h2 id="举个例子：我的项目需要在本地安装MySQL服务。"><a href="#举个例子：我的项目需要在本地安装MySQL服务。" class="headerlink" title="举个例子：我的项目需要在本地安装MySQL服务。"></a>举个例子：我的项目需要在本地安装MySQL服务。</h2><p>只需要在命令行使用Docker使用mariadb镜像启动一个容器即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">--name some-mariadb --rm \</span><br><span class="line">-p 3306:3306 -e MYSQL_ROOT_PASSWORD=password \</span><br><span class="line">mariadb:latest</span><br></pre></td></tr></table></figure>
+<p>使用用户名<code>root</code>，密码：<code>password</code>即可成功连接MySQL。</p>
+<p><img src="/images/navicat-mysql-01.jpg" alt="docker mysql"></p>
+<p>如果想停止，直接按下Ctrl+\，服务又从电脑中移除，非常干净。</p>
+<blockquote>
+<p><strong>备注</strong>：为何这里不是Ctrl+C来终止命令，可以参阅本文<a href="https://github.com/docker-library/mariadb/issues/82#issuecomment-339242301" target="_blank" rel="noopener">[3]</a></p>
+</blockquote>
+<p>该命令中有几个参数具体分享一下：</p>
+<ul>
+<li>–rm 容器结束时，移除container，与之相对的有-d</li>
+<li>-p 映射容器端口到主机端口，主机端口:容器端口</li>
+<li>-e Env 环境变量</li>
+<li>-d –detach 后台运行，和–rm不能同时使用</li>
+<li>-v 挂载数据卷，bind的方式</li>
+</ul>
+<p>接着启动数据库的例子，我们会发现，在结束掉服务后，下次再启动会发现数据全没了，我们如果希望将自己的数据保存在本地，那么可以增加-v参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">--name some-mariadb --rm \</span><br><span class="line">-p 3306:3306 -e MYSQL_ROOT_PASSWORD=password \</span><br><span class="line">-v /you/data/path:/var/lib/mysql</span><br><span class="line">mariadb:latest</span><br></pre></td></tr></table></figure>
+<p>这样本地路径<code>/you/data/path</code>就会将MySQL产生的数据持久化保存了，每次启动MariaDB都会还原之前的数据了。</p>
+<p>以上我们便体验了Docker的一大特点<strong>快速部署</strong>，即快速将MySQL服务部署到你的电脑上，无论是Windows/OSX/Linux系统，都是一段命令搞定，大大节省了时间和精力。</p>
+<p>这样在我们的开发服务器上，只需要存储一些配置和数据文件，执行文件完全交由Docker管理。</p>
+<h2 id="举个例子：我需要使用Nginx做一个接口转发"><a href="#举个例子：我需要使用Nginx做一个接口转发" class="headerlink" title="举个例子：我需要使用Nginx做一个接口转发"></a>举个例子：我需要使用Nginx做一个接口转发</h2><p>我们需要在开发中需要用到该接口：<code>https://yapi.thisjs.com/mock/21/antd/games</code>，我需要使用nginx对其进行一些代理配置，这样我们只需要创建一个.conf文件，然后使用Docker启动一个Nginx挂载该conf文件到<code>conf.d/</code>目录下即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># proxy.conf</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 8080;</span><br><span class="line">    location / &#123;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</span><br><span class="line">        add_header Cache-Control private;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&apos;;</span><br><span class="line">        proxy_pass https://yapi.thisjs.com/mock/21/antd/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在配置目录下执行该命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">--name proxy-server \</span><br><span class="line">-v <span class="string">"<span class="variable">$(pwd)</span>/proxy.conf"</span>:/etc/nginx/conf.d/proxy.conf:ro \</span><br><span class="line">-d -p 8080:8080 \</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+<p>这时候，我们即可访问 <code>http://localhost:8080/games</code>，即可获取到所需要的数据。</p>
+<p>当我们开发/调试结束后，如果需要将nginx容器停止并移除可以参考以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看正在运行中的container</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="comment"># 停止名称为 proxy-server 的container</span></span><br><span class="line">docker stop proxy-server</span><br><span class="line"><span class="comment"># 删除名称为 proxy-server 的container</span></span><br><span class="line">docker container rm proxy-server</span><br></pre></td></tr></table></figure>
+<p>至此，Docker已经基本满足了我们的两个需求：</p>
+<ol>
+<li>开发所需的非前端环境一键配置</li>
+<li>所需的服务方便配置、简单移除</li>
+</ol>
+<p>但是还没有完全达到，我们希望所需环境<strong>一键配置</strong>，而不是一键又一键的配置，因此希望能在下一个篇章里介绍Docker更轻松维护服务的相关内容。</p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p>看到这，你可能还没有安装Docker，其实Docker安装非常的简单。比如Mac，只需要下载镜像然后直接安装即可：</p>
+<p><img src="/images/install-mac-dmg.png" alt="安装Docker"></p>
+<p>其他系统的Docker安装都非常的简单，可以参考这篇文章介绍：</p>
+<p><a href="https://yeasy.gitbook.io/docker_practice/install" target="_blank" rel="noopener">安装 Docker</a></p>
+<h2 id="安装完之后"><a href="#安装完之后" class="headerlink" title="安装完之后"></a>安装完之后</h2><p>安装完之后，不如尝试启动一个普通的前端项目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">-p 80:80 --name react-demo \</span><br><span class="line">--rm \</span><br><span class="line">mrxf/craantdbasic:latest</span><br></pre></td></tr></table></figure>
+<p>这是一个基于create react app的前端项目，启动之后直接访问 <code>localhost</code>即可看到页面。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>不能<strong>为了用Docker而用Docker</strong>，否则会出现Docker也成了我们开发中的一项没有必要的服务。遇到问题，还是要以前端的方式解决。</p>
+<p>以下以2个场景进行分析：</p>
+<h2 id="1-开发中的代理请求"><a href="#1-开发中的代理请求" class="headerlink" title="1.开发中的代理请求"></a>1.开发中的代理请求</h2><p>如果是单一的代理请求来解决跨域问题的场景，那么最佳方案是<strong>以前端的方案解决</strong></p>
+<p>在现代前端框架脚手架中都集成了非常方便的proxy方案，以Create React App<a href="https://create-react-app.dev/docs/proxying-api-requests-in-development/" target="_blank" rel="noopener">[2]</a>为例，就提供了http和https代理功能，在未eject的项目的<code>package.json</code>文件中增加一项配置即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;proxy&quot;: &quot;http://url.to.poxy&quot;,</span><br></pre></td></tr></table></figure></p>
+<p>Creact React App在执行eject之后，与其他基于Webpack的项目都可以通过配置<code>webpack.config.js</code>，在<code>devServer</code>中新增proxy即可。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">proxy: &#123;</span><br><span class="line">    <span class="string">'/api'</span>: &#123;</span><br><span class="line">        target: <span class="string">'http://localhost:3000'</span>,</span><br><span class="line">        pathRewrite: &#123;<span class="string">'^/api'</span> : <span class="string">''</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只有在遇到比较特殊的情况下，我们才会去配置Nginx</p>
+<ol>
+<li>项目请求多个URL，我们需要将某些地址做转发，以阻止其访问原来的地址。</li>
+<li>直播数据流地址</li>
+</ol>
+<p>对于场景1，我们需要Nginx + Hosts的配合来实现。首先修改Hosts将原来的访问地址转发到本地，然后使用nginx来将其指向目标地址。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    listen     80;</span><br><span class="line">    server_name api.serverurl.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">        ...其他配置...</span><br><span class="line">        proxy_pass http://127.0.0.1:4300;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-前端项目部署问题"><a href="#2-前端项目部署问题" class="headerlink" title="2.前端项目部署问题"></a>2.前端项目部署问题</h2><p>前端线上部署到底要不要用Docker？<strong>纯静态前端项目</strong>完全不需要，因为前端项目更依赖网络资源和浏览器资源，因此常规场景下，<strong>CDN</strong>才是纯静态项目的部署方案。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://create-react-app.dev/docs/proxying-api-requests-in-development/" target="_blank" rel="noopener">[1]Docker: Empowering App Development for Developers</a></p>
+<p><a href="https://create-react-app.dev/docs/proxying-api-requests-in-development/" target="_blank" rel="noopener">[2]Proxying API Requests in Development</a></p>
+<p><a href="https://github.com/docker-library/mariadb/issues/82#issuecomment-339242301" target="_blank" rel="noopener">[3]Ctrl+C does not kill mysqld</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/04/javascript-web-request-a-race-condition-problem/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JavaScript网络请求(一)：处理race condition竞态问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/07/using-man-in-the-middle-for-capture/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用MiTM的方式进行无线抓包调试</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'thisjs'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2021 张树源
+    	</div>
+      	<div class="footer-right">
+      		<a href="https://beian.miit.gov.cn/" target="_blank">京ICP备17023228号-3</a>
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//cdn.bootcdn.net/ajax/libs/require.js/2.1.6/require.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
